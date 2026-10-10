@@ -1,0 +1,325 @@
+/* ========================================
+   QUIZZO USERS PAGE
+   ======================================== */
+
+.users-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 30px 25px 50px;
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   TOP BAR
+   ======================================== */
+
+.users-top-bar {
+    width: 100%;
+    margin-bottom: 28px;
+}
+
+.users-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 13px;
+    background: #1e293b;
+    color: #cbd5e1;
+    border: 1px solid #334155;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.users-back-btn:hover {
+    color: #a5b4fc;
+    border-color: #6366f1;
+    background: #252f45;
+    transform: translateX(-2px);
+}
+
+
+/* ========================================
+   PAGE HEADING
+   ======================================== */
+
+.users-heading {
+    margin-bottom: 25px;
+}
+
+.users-heading p {
+    margin: 0 0 5px;
+    color: #818cf8;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.users-heading h1 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.users-heading span {
+    display: block;
+    margin-top: 6px;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+
+/* ========================================
+   TABLE CONTAINER
+   ======================================== */
+
+.users-table-container {
+    width: 100%;
+    overflow-x: auto;
+    background: #171d2b;
+    border: 1px solid #293246;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.30),
+                0 4px 12px rgba(79, 70, 229, 0.08);
+}
+
+
+/* ========================================
+   TABLE
+   ======================================== */
+
+.users-table {
+    width: 100%;
+    min-width: 650px;
+    border-collapse: collapse;
+    color: #e2e8f0;
+    font-size: 13px;
+}
+
+
+/* ========================================
+   TABLE HEADER
+   ======================================== */
+
+.users-table thead {
+    background: #1d2433;
+}
+
+.users-table th {
+    padding: 15px 18px;
+    color: #a5b4fc;
+    border-bottom: 1px solid #30394c;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-align: left;
+}
+
+
+/* ========================================
+   TABLE ROWS
+   ======================================== */
+
+.user-row {
+    transition: background 0.2s ease;
+}
+
+.user-row:hover {
+    background: #1d2536;
+}
+
+.user-row:not(:last-child) td {
+    border-bottom: 1px solid #293246;
+}
+
+.users-table td {
+    padding: 14px 18px;
+    vertical-align: middle;
+}
+
+
+/* ========================================
+   USERNAME
+   ======================================== */
+
+.user-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #f1f5f9;
+    font-weight: 600;
+}
+
+.user-avatar {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background: #252c4a;
+    color: #818cf8;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* ========================================
+   EMAIL
+   ======================================== */
+
+.user-email {
+    color: #94a3b8;
+}
+
+
+/* ========================================
+   STATUS BADGES
+   ======================================== */
+
+.user-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 70px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* ========================================
+   ADMIN
+   ======================================== */
+
+.admin-status {
+    background: #252c4a;
+    color: #a5b4fc;
+}
+
+
+/* ========================================
+   SUPERUSER
+   ======================================== */
+
+.superuser-status {
+    background: #302344;
+    color: #c084fc;
+}
+
+
+/* ========================================
+   NORMAL USER
+   ======================================== */
+
+.normal-status {
+    background: #252b36;
+    color: #94a3b8;
+}
+
+
+/* ========================================
+   EMPTY STATE
+   ======================================== */
+
+.no-users {
+    width: 100%;
+    padding: 55px 20px;
+    box-sizing: border-box;
+    background: #171d2b;
+    border: 1px solid #293246;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+.no-users-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    border-radius: 12px;
+    background: #252c4a;
+    color: #818cf8;
+    font-size: 20px;
+}
+
+.no-users h3 {
+    margin: 0;
+    color: #f1f5f9;
+    font-size: 16px;
+}
+
+.no-users p {
+    margin: 6px 0 0;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+
+/* ========================================
+   GLOBAL RESET
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+
+/* ========================================
+   BODY
+   ======================================== */
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    background: #0f172a;
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+}
+
+
+/* ========================================
+   MOBILE
+   ======================================== */
+
+@media (max-width: 650px) {
+
+    .users-page {
+        padding: 20px 12px 35px;
+    }
+
+    .users-heading h1 {
+        font-size: 23px;
+    }
+
+    .users-heading span {
+        font-size: 12px;
+    }
+
+    .users-table-container {
+        border-radius: 10px;
+    }
+
+    .users-table th,
+    .users-table td {
+        padding: 12px 14px;
+    }
+
+    .user-avatar {
+        width: 30px;
+        height: 30px;
+    }
+}

@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<main class="ai-builder-page">
+
+    {% if user.is_superuser %}
+        <a href="{% url 'superuserpage' %}" class="ai-back-btn">
+            ← Back to Admin Panel
+        </a>
+    {% elif user.is_admin %}
+        <a href="{% url 'adminpage' %}" class="ai-back-btn">
+            ← Back to Admin Panel
+        </a>
+    {% endif %}
+
+    <div class="ai-builder-card">
+
+        <div class="ai-builder-header">
+
+            <div class="ai-icon">
+                ✦
+            </div>
+
+            <div class="ai-heading">
+                <div class="ai-label">
+                    <span class="ai-pulse"></span>
+                    AI QUESTION BUILDER
+                </div>
+
+                <h1>Generate Questions</h1>
+
+                <p>
+                    Let Quizzo AI create high-quality questions
+                    for your existing quiz categories.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="ai-divider"></div>
+
+
+        <form method="post" class="ai-question-form">
+
+            {% csrf_token %}
+
+            <div class="ai-form-section">
+
+                <label for="category">
+                    Quiz Category
+                    <span>Choose where the generated questions should be added.</span>
+                </label>
+
+                <div class="ai-input-wrapper">
+
+                    <span class="ai-input-icon">▦</span>
+
+                    <select id="category" name="category" required>
+
+                        <option value="">Choose a category</option>
+
+                        {% for item in categories %}
+                            <option value="{{ item.id }}">
+                                {{ item.category_name }}
+                            </option>
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="ai-form-row">
+
+                <div class="ai-form-section">
+
+                    <label for="question_count">
+                        Number of Questions
+                        <span>Choose between 1 and 20.</span>
+                    </label>
+
+                    <div class="ai-input-wrapper">
+
+                        <span class="ai-input-icon">#</span>
+
+                        <input
+                            id="question_count"
+                            type="number"
+                            name="question_count"
+                            min="1"
+                            max="20"
+                            value="5"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="ai-form-section">
+
+                    <label for="difficulty">
+                        Difficulty
+                        <span>Select the level of the questions.</span>
+                    </label>
+
+                    <div class="ai-input-wrapper">
+
+                        <span class="ai-input-icon">◆</span>
+
+                        <select id="difficulty" name="difficulty" required>
+
+                            <option value="easy">Easy</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="hard">Hard</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="ai-info-box">
+
+                <div class="ai-info-icon">
+                    ✦
+                </div>
+
+                <div>
+                    <strong>Powered by Quizzo AI</strong>
+
+                    <p>
+                        Questions will be generated automatically
+                        based on your selected category and difficulty.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <button type="submit" class="ai-generate-btn">
+
+                <span class="ai-button-icon">✦</span>
+
+                <span>Generate Questions</span>
+
+                <span class="ai-button-arrow">→</span>
+
+            </button>
+
+        </form>
+
+    </div>
+
+</main>
+
+{% endblock %}

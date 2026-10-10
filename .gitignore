@@ -1,0 +1,16 @@
+# Secret Keys & Environment Variables
+.env
+
+# Databases and Backups
+db.sqlite3
+*.bak
+*.bak2
+
+# Python Cache
+__pycache__/
+*.py[cod]
+
+# Uploaded User Files & Build Folders
+media/
+media_root/
+static_root/

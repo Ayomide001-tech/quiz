@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="users-page">
+
+    <div class="users-top-bar">
+
+        {% if user.is_authenticated and user.is_superuser %}
+            <a href="{% url 'superuserpage' %}" class="users-back-btn">
+                ← Back to Admin Panel
+            </a>
+        {% elif user.is_authenticated and user.is_admin %}
+            <a href="{% url 'adminpage' %}" class="users-back-btn">
+                ← Back to Admin Panel
+            </a>
+        {% endif %}
+
+    </div>
+
+    <div class="users-heading">
+        <p>QUIZ DATA</p>
+        <h1>All Users</h1>
+        <span>View and manage the users registered on Quizzo.</span>
+    </div>
+
+    {% if presentusers %}
+
+        <div class="users-table-container">
+
+            <table class="users-table">
+
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Admin</th>
+                        <th>Superuser</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for account in presentusers %}
+
+                    <tr class="user-row">
+
+                        <td>
+                            <div class="user-name">
+                                <span class="user-avatar">
+                                    {{ account.username|first|upper }}
+                                </span>
+
+                                <span>{{ account.username }}</span>
+                            </div>
+                        </td>
+
+                        <td class="user-email">
+                            {{ account.email }}
+                        </td>
+
+                        <td>
+                            {% if account.is_admin %}
+                                <span class="user-status admin-status">
+                                    Admin
+                                </span>
+                            {% else %}
+                                <span class="user-status normal-status">
+                                    User
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if account.is_superuser %}
+                                <span class="user-status superuser-status">
+                                    Superuser
+                                </span>
+                            {% else %}
+                                <span class="user-status normal-status">
+                                    No
+                                </span>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    {% else %}
+
+        <div class="no-users">
+            <div class="no-users-icon">👤</div>
+            <h3>No Users Found</h3>
+            <p>There are currently no registered users.</p>
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

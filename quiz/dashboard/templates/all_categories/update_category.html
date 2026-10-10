@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="edit-category-page">
+
+    <div class="edit-category-card">
+
+        <div class="edit-category-heading">
+            <p>QUIZ DATA</p>
+            <h1>Update Category</h1>
+            <span>Make changes to your quiz category below.</span>
+        </div>
+
+        <div class="edit-category-divider"></div>
+
+        <form method="post"
+              enctype="multipart/form-data"
+              class="edit-category-form">
+
+            {% csrf_token %}
+
+            <div class="edit-category-group">
+
+                <label for="{{ form.category_name.id_for_label }}">
+                    Category Name
+                    <small>Enter the name of your quiz category.</small>
+                </label>
+
+                <div class="edit-category-input-wrapper">
+                    <span class="edit-category-input-icon">▦</span>
+                    {{ form.category_name }}
+                </div>
+
+            </div>
+
+
+            <div class="edit-category-group">
+
+                <label for="{{ form.time.id_for_label }}">
+                    Time Limit
+                    <small>Set the amount of time allowed for the quiz.</small>
+                </label>
+
+                <div class="edit-category-input-wrapper">
+                    <span class="edit-category-input-icon">◷</span>
+                    {{ form.time }}
+                </div>
+
+            </div>
+
+
+            <div class="edit-category-actions">
+
+                <a href="{% url 'viewaddedquestion' %}"
+                   class="edit-category-cancel">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="edit-category-update">
+
+                    <span>✓</span>
+                    Update Category
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

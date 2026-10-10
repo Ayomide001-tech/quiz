@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<header class="selection-header">
+
+    <a href="{% url 'homepage' %}" class="selection-logo">
+        Quiz<span>zo</span>
+    </a>
+
+    <div class="selection-header-right">
+        <span class="selection-page-name">NAVIGATION</span>
+
+        <a href="{% url 'logout_view' %}" class="selection-logout">
+            Logout
+        </a>
+    </div>
+
+</header>
+
+
+<div class="selection-page">
+
+    <div class="selection-card">
+
+        <div class="selection-heading">
+
+            <p class="selection-tag">NAVIGATION</p>
+
+            <h1>Where would you like to go?</h1>
+
+            <p>
+                Choose a page to continue managing your Quizzo platform.
+            </p>
+
+        </div>
+
+
+        <div class="selection-grid">
+
+            <a href="{% url 'adminpage' %}"
+               class="selection-link admin-link">
+
+                <span class="selection-icon">⚙</span>
+
+                <div>
+                    <strong>Admin Page</strong>
+                    <small>Manage your platform</small>
+                </div>
+
+                <span class="selection-arrow">→</span>
+
+            </a>
+
+
+            <a href="{% url 'homepage' %}"
+               class="selection-link">
+
+                <span class="selection-icon">⌂</span>
+
+                <div>
+                    <strong>Home Page</strong>
+                    <small>Go to the main page</small>
+                </div>
+
+                <span class="selection-arrow">→</span>
+
+            </a>
+
+
+            <a href="{% url 'dashboard' %}"
+               class="selection-link">
+
+                <span class="selection-icon">▦</span>
+
+                <div>
+                    <strong>Dashboard</strong>
+                    <small>View your quiz overview</small>
+                </div>
+
+                <span class="selection-arrow">→</span>
+
+            </a>
+
+
+            <a href="{% url 'create_question' %}"
+               class="selection-link">
+
+                <span class="selection-icon">+</span>
+
+                <div>
+                    <strong>Create Question</strong>
+                    <small>Add a new quiz question</small>
+                </div>
+
+                <span class="selection-arrow">→</span>
+
+            </a>
+            
+            <a href="{% url 'viewaddedquestion' %}"
+               class="admin-command">
+
+                <span class="admin-command-icon">☷</span>
+
+                <div>
+                    <strong>View Added Questions</strong>
+                    <small>View and manage your questions</small>
+                </div>
+
+                <span class="admin-arrow">→</span>
+
+            </a>
+
+
+            <a href="{% url 'viewScores' %}"
+               class="admin-command">
+
+                <span class="admin-command-icon">▣</span>
+
+                <div>
+                    <strong>View Users Scores <span>{{ current_user_score }}</span></strong>
+                    <small>View platform scores and activities</small>
+                </div>
+
+                <span class="admin-arrow">→</span>
+
+            </a>
+            
+            <a href="{% url 'generate_questions' %}"
+               class="admin-command">
+                <span class="admin-command-icon">✦</span>
+                <div>
+                    <strong>Generate Questions with AI</strong>
+                    <small>Create quiz questions with Gemini</small>
+                </div>
+                <span class="admin-arrow">→</span>
+            </a>
+
+            <a href="{% url 'category_with_ai' %}"
+               class="admin-command">
+                <span class="admin-command-icon">✦</span>
+                <div>
+                    <strong>Create Category with AI</strong>
+                    <small>Create a new category and its questions</small>
+                </div>
+                <span class="admin-arrow">→</span>
+            </a>
+
+            
+            <a href="{% url 'upload_questions' %}"
+               class="admin-command">
+
+                <span class="admin-command-icon">▣</span>
+
+                <div>
+                    <strong>Upload Questions</strong>
+                    <small>Upload questions from an Excel file</small>
+                </div>
+
+                <span class="admin-arrow">→</span>
+
+            </a>
+
+
+                        <a href="{% url 'view_all_user' %}"
+               class="admin-command">
+
+                <span class="admin-command-icon">▣</span>
+
+                <div>
+                    <strong>There are {{ view_all_user }} users present</strong>
+                    <small>Manage platform users</small>
+                </div>
+
+                <span class="admin-arrow">→</span>
+
+            </a>
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+{% if user.is_authenticated and user.is_superuser %}
+
+<header class="admin-header">
+
+    <a href="{% url 'homepage' %}" class="admin-logo">
+        Quiz<span>zo</span>
+    </a>
+
+    <div class="admin-header-right">
+        <span class="admin-page-name">ADMIN PANEL</span>
+
+        <a href="{% url 'logout_view' %}" class="admin-logout">
+            Logout
+        </a>
+    </div>
+
+</header>
+
+
+<div class="admin-page">
+    <div class="admin-container">
+
+        <div class="admin-heading">
+            <p class="admin-tag">ADMIN PANEL</p>
+
+            <h1>Quizzo Admin</h1>
+
+            <p>
+                Manage your quizzes, questions, and platform activities.
+            </p>
+        </div>
+
+
+        <div class="admin-command-grid">
+            
+
+            <a href="{% url 'create_question' %}"
+               class="admin-command create-command">
+
+                <span class="admin-command-icon">+</span>
+
+                <div>
+                    <strong>Create Question</strong>
+                    <small>Add a new question to the database</small>
+                </div>
+
+                <span class="admin-arrow">→</span>
+
+            </a>
+            
+            <a href="{% url 'dashboard' %}"
+               class="selection-link">
+
+                <span class="selection-icon">▦</span>
+
+                <div>
+                    <strong>Dashboard</strong>
+                    <small>View your quiz overview</small>
+                </div>
+
+                <span class="selection-arrow">→</span>
+
+            </a>
+
+
+
+            <a href="{% url 'viewaddedquestion' %}"
+               class="admin-command">
+
+                <span class="admin-command-icon">☷</span>
+
+                <div>
+                    <strong>View Added Questions</strong>
+                    <small>View and manage your questions</small>
+                </div>
+
+                <span class="admin-arrow">→</span>
+
+            </a>
+
+
+            <a href="{% url 'viewScores' %}"
+               class="admin-command">
+
+                <span class="admin-command-icon">▣</span>
+
+                <div>
+                    <strong>View Users Scores <span>{{ current_user_score }}</span></strong>
+                    <small>View platform scores and activities</small>
+                </div>
+
+                <span class="admin-arrow">→</span>
+
+            </a>
+
+            <a href="{% url 'generate_questions' %}"
+               class="admin-command">
+                <span class="admin-command-icon">✦</span>
+                <div>
+                    <strong>Generate Questions with AI</strong>
+                    <small>Create quiz questions with Gemini</small>
+                </div>
+                <span class="admin-arrow">→</span>
+            </a>
+
+            <a href="{% url 'category_with_ai' %}"
+               class="admin-command">
+                <span class="admin-command-icon">✦</span>
+                <div>
+                    <strong>Create Category with AI</strong>
+                    <small>Create a new category and its questions</small>
+                </div>
+                <span class="admin-arrow">→</span>
+            </a>
+
+            
+            <a href="{% url 'upload_questions' %}"
+               class="admin-command">
+
+                <span class="admin-command-icon">▣</span>
+
+                <div>
+                    <strong>Upload Questions</strong>
+                    <small>Upload questions from an Excel file</small>
+                </div>
+
+                <span class="admin-arrow">→</span>
+
+            </a>
+
+        </div>
+
+    </div>
+</div>
+
+
+{% else %}
+
+<div class="permission-container">
+
+    <div class="permission-icon">!</div>
+
+    <h2>Access Denied</h2>
+
+    <p>You do not have permission to access this page.</p>
+
+    <a href="{% url 'homepage' %}" class="permission-btn">
+        Return Home
+    </a>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

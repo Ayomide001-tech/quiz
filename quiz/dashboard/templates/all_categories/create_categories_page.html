@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    
+    <form id="create-category-form">
+        <div class="form-group">
+            <label for="category_name">Category Name</label>
+            <input type="text" id="category_name" name="category_name" required>
+            <label for="time">Enter Quiz time</label>
+            <input type="text" id="time" name="time" required placeholder="Enter time in minutes">
+        </div>
+
+        <button type="submit" class="create-category-btn">Create Category <span>→</span></button>
+    </form> 
+</body>
+<script>
+
+    document.getElementById('create-category-form').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const category_name = document.getElementById('category_name').value;
+        const time = document.getElementById('time').value;
+
+        try{
+            const response = await fetch('/dashboard/create_categories_api/', {
+                method: 'POST',
+                headers: {
+                        'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    category_name: category_name,
+                    time: time
+                })
+            });
+            const data = await  response.json();
+            console.log(data);
+        }catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while creating the category.');
+
+        }
+    })
+
+</script>
+</html>

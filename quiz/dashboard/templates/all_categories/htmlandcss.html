@@ -1,0 +1,303 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<header class="view-questions-header">
+
+    <a href="{% url 'homepage' %}" class="view-questions-logo">
+        Quiz<span>zo</span>
+    </a>
+                {% if user.is_authenticated and user.is_superuser %}
+
+
+    <div class="view-questions-nav">
+
+        <a href="{% url 'create_question' %}" class="add-question-link">
+            + Add Question
+        </a>
+    {% endif %}
+        <a href="{% url 'logout_view' %}" class="logout-link">
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="view-questions-page">
+
+    <div class="view-questions-heading">
+
+        <p class="view-questions-tag">QUIZ DATABASE</p>
+
+        <h1>Added Questions</h1>
+
+        <span>
+            Review your questions by taking the quiz exactly as a user would.
+        </span>
+
+    </div>
+
+
+    <div class="quiz-container">
+
+        <div id="quiz">
+
+            <div class="quiz-top">
+
+                <p id="question-number"></p>
+
+                <div class="quiz-progress">
+                    <div class="quiz-progress-bar">
+                        <span id="progress-fill"></span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="quiz-question-box">
+
+                <span class="question-label">QUESTION</span>
+
+                <h2 id="question-text"></h2>
+
+            </div>
+
+
+            <div class="quiz-options">
+
+                <button class="answer-button"
+                        data-answer="A"
+                        id="option-a">
+                </button>
+
+                <button class="answer-button"
+                        data-answer="B"
+                        id="option-b">
+                </button>
+
+                <button class="answer-button"
+                        data-answer="C"
+                        id="option-c">
+                </button>
+
+                <button class="answer-button"
+                        data-answer="D"
+                        id="option-d">
+                </button>
+
+            </div>
+
+
+            <div class="quiz-footer">
+
+                <p id="result"></p>
+
+                <button id="next-button" disabled>
+                    Next Question <span>→</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+let questions = [];
+let currentQuestionIndex = 0;
+let score = 0;
+let selectedAnswer = null;
+
+const answerButtons =
+    document.querySelectorAll(".answer-button");
+
+const nextButton =
+    document.getElementById("next-button");
+
+
+async function fetchQuestions(){
+
+    try{
+
+        const response = await fetch("/dashboard/html_css_api/");
+
+        const data = await response.json();
+
+        questions = data.question_content || [];
+
+
+        if(questions.length > 0){
+            displayQuestion();
+        }else{
+            document.getElementById("quiz").innerHTML = `
+                <div class="quiz-empty">
+                    <h2>No Questions Yet</h2>
+                    <p>
+                        There are currently no questions available
+                        for this quiz.
+                    </p>
+                </div>
+            `;
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+function displayQuestion(){
+
+    const question = questions[currentQuestionIndex];
+
+
+    document.getElementById("question-number").textContent =
+        `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+
+    document.getElementById("question-text").textContent = question.question;
+    document.getElementById("option-a").textContent = question.option_a;
+    document.getElementById("option-b").textContent =question.option_b;
+    document.getElementById("option-c").textContent = question.option_c;
+    document.getElementById("option-d").textContent = question.option_d;
+    document.getElementById("result").textContent = "";
+
+    const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+
+    document.getElementById("progress-fill").style.width =
+        `${progress}%`;
+
+
+    nextButton.disabled = true;
+
+    selectedAnswer = null;
+
+
+    answerButtons.forEach(button => {
+
+        button.disabled = false;
+
+        button.classList.remove("selected");
+
+    });
+
+}
+
+
+answerButtons.forEach(button => {
+
+    button.addEventListener("click", function(){
+
+        selectedAnswer =
+            this.dataset.answer;
+
+
+        answerButtons.forEach(answerButton => {
+
+            answerButton.classList.remove("selected");
+
+        });
+
+
+        this.classList.add("selected");
+
+
+        nextButton.disabled = false;
+
+    });
+
+});
+
+
+nextButton.addEventListener("click", function(){
+
+    const question =
+        questions[currentQuestionIndex];
+
+
+    if(selectedAnswer === question.correct_answer){
+
+        score++;
+
+    }
+
+
+    currentQuestionIndex++;
+
+
+    if(currentQuestionIndex < questions.length){
+
+        displayQuestion();
+
+    }else{
+
+        fetch("{% url 'save_score' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: `score=${score}`
+        });
+
+        document.getElementById("quiz").innerHTML = `
+
+            <div class="quiz-finished">
+
+                <div class="finished-icon">✓</div>
+
+                <p class="finished-tag">
+                    QUIZ COMPLETE
+                </p>
+
+                <h2>Quiz Finished!</h2>
+
+                <p class="finished-text">
+                    You have completed all the available questions.
+                </p>
+
+                <div class="score-display">
+
+                    <span>Your Score</span>
+
+                    <strong>
+                        ${score} / ${questions.length}
+                    </strong>
+
+                </div>
+
+                {% if user.is_authenticated and user.is_superuser %}
+                    <a href="{% url 'create_question' %}"
+                       class="add-more-questions">
+
+                        Add More Questions +
+
+                    </a>
+                {% endif %}
+
+            </div>
+
+        `;
+
+    }
+
+});
+
+
+
+
+window.addEventListener( "DOMContentLoaded", fetchQuestions);
+
+</script>
+
+{% endblock %}

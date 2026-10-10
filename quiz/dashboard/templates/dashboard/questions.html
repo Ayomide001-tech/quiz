@@ -1,0 +1,420 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="dashboard-page">
+<header class="dashboard-header">
+    <a href="{% url 'dashboard' %}" class="dashboard-logo">Quiz<span>zo</span></a>
+    <nav class="dashboard-nav">
+        <a href="{% url 'dashboard' %}" class="nav-active">Home</a>
+        <a href="#" class="help_button">Help</a>
+        <div class="account_dropdown">
+            <button class="account_present_user" id="accountButton" type="button">
+                <span class="user-avatar">{{ user.username|first|upper }}</span>
+                <span class="user-greeting">Hi, {{ user.username }}</span>
+                <span class="dropdown-arrow">⌄</span>
+            </button>
+            <div class="dropdown_content" id="dropdownContent">
+                <a href="#" class="my_account">
+                    <span>👤</span>
+                    My Account
+                </a>
+                <a href="#" class="my_order">
+                    <span>📚</span>
+                    Past Quizzes
+                </a>
+            </div>
+        </div>
+        <a href="{% url 'logout_view' %}" class="dashboard-logout">Logout</a>
+    </nav>
+</header>
+
+{% if user.is_authenticated and user.is_superuser %}
+<a href="{% url 'superuserpage' %}" class="create-back-btn"> back </a>
+
+
+{% elif user.is_authenticated and user.is_admin %}
+<a href="{% url 'adminpage' %}" class="create-back-btn"> back </a>
+{% endif %}
+
+
+<main class="quiz-page-main">
+    <section class="quiz-wrapper">
+        <div class="quiz-header">
+            <div class="quiz-title-area">
+                <p class="quiz-label">QUIZ</p>
+                <h1>{{ category.category_name }}</h1>
+            </div>
+            <div class="quiz-time-area">
+                <span>TIME LIMIT</span>
+                <div class="timer" id="timer">{{ category.time }}:00</div>
+            </div>
+        </div>
+        <div class="progress-area">
+            <div class="progress-info">
+                <span>Quiz Progress</span>
+                <span>{{ questions|length }} Questions</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+        <div class="questions-container" id="quiz">
+            {% if questions %}
+                {% for question in questions %}
+                <div class="question-card"
+                     style="display: none;"
+                     data-question-index="{{ forloop.counter0 }}">
+                    <div class="question-header">
+                        <div class="question-counter">
+                            QUESTION
+                            <strong>{{ forloop.counter }}</strong>
+                            <span>OF {{ questions|length }}</span>
+                        </div>
+                    </div>
+                    <div class="question-body">
+                        <p class="question-text">
+                            {{ question.question }}
+                        </p>
+                        <div class="options">
+                            <button class="option-button" data-answer="A">
+                                <span>A.</span>
+                                <strong>{{ question.option_a }}</strong>
+                            </button>
+                            <button class="option-button" data-answer="B">
+                                <span>B.</span>
+                                <strong>{{ question.option_b }}</strong>
+                            </button>
+                            <button class="option-button" data-answer="C">
+                                <span>C.</span>
+                                <strong>{{ question.option_c }}</strong>
+                            </button>
+                            <button class="option-button" data-answer="D">
+                                <span>D.</span>
+                                <strong>{{ question.option_d }}</strong>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="quiz-controls">
+                    <button class="next-button" id="nextButton" disabled>
+                        Next Question
+                        <span>→</span>
+                    </button>
+                </div>
+            {% else %}
+                <div class="no-questions">
+                    <h2>No Questions Available</h2>
+                    <p>No questions are available for this category yet.</p>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+</main>
+<footer class="dashboard-footer">
+    <p>© 2026 Quizzo. Learn. Test. Improve.</p>
+</footer>
+<!-- Resume Quiz Modal -->
+<div class="modal" id="resumeModal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-icon">?</div>
+        <h2>Resume Quiz?</h2>
+        <p>
+            We found a saved quiz session.
+            Would you like to continue where you left off?
+        </p>
+        <div class="modal-buttons">
+            <button class="modal-btn btn-continue" id="continueBtn">
+                Continue Quiz
+            </button>
+            <button class="modal-btn btn-new" id="newBtn">
+                Start Fresh
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+const questionsData = [
+    {% for question in questions %}
+    {
+        "id": {{ question.id }},
+        "question": "{{ question.question|escapejs }}",
+        "option_a": "{{ question.option_a|escapejs }}",
+        "option_b": "{{ question.option_b|escapejs }}",
+        "option_c": "{{ question.option_c|escapejs }}",
+        "option_d": "{{ question.option_d|escapejs }}",
+        "correct_answer": "{{ question.correct_answer }}"
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+];
+let currentQuestionIndex = 0;
+let score = 0;
+let selectedAnswer = null;
+let timeRemaining = {{ category.time }} * 60;
+let timerInterval = null;
+let quizEnded = false;
+const categoryId = {{ category.id }};
+const storageKey = `quiz_session_${categoryId}`;
+const nextButton = document.getElementById("nextButton");
+const quizContainer = document.getElementById("quiz");
+const answerButtons = document.querySelectorAll(".option-button");
+function saveQuizState() {
+    const state = {
+        categoryId: categoryId,
+        currentQuestionIndex: currentQuestionIndex,
+        score: score,
+        timeRemaining: timeRemaining,
+        selectedAnswer: selectedAnswer,
+        timestamp: new Date().getTime()
+    };
+    localStorage.setItem(storageKey, JSON.stringify(state));
+}
+function loadQuizState() {
+    const saved = localStorage.getItem(storageKey);
+    if (saved) {
+        return JSON.parse(saved);
+    }
+    return null;
+}
+function clearQuizState() {
+    localStorage.removeItem(storageKey);
+}
+function preventBackNavigation() {
+    // Replace current history state to prevent going back
+    history.replaceState({ isQuizPage: true }, document.title, window.location.href);
+    
+    // Detect back button or forward attempts
+    window.addEventListener('popstate', function(event) {
+        // If quiz is ended, prevent navigation
+        if (quizEnded) {
+            history.forward();
+            showBackButtonBlockedAlert();
+        }
+    });
+}
+
+function showBackButtonBlockedAlert() {
+    alert("⛔ You cannot go back after completing the quiz. Please use the dashboard to start a new quiz.");
+}
+
+function checkForSavedSession() {
+    const saved = loadQuizState();
+    if (saved && saved.categoryId === categoryId) {
+        const modal = document.getElementById("resumeModal");
+        modal.style.display = "flex";
+        document.getElementById("continueBtn").addEventListener("click", function() {
+            currentQuestionIndex = saved.currentQuestionIndex;
+            score = saved.score;
+            timeRemaining = saved.timeRemaining;
+            modal.style.display = "none";
+            displayQuestion();
+            startTimer();
+        });
+        document.getElementById("newBtn").addEventListener("click", function() {
+            clearQuizState();
+            modal.style.display = "none";
+            currentQuestionIndex = 0;
+            score = 0;
+            selectedAnswer = null;
+            timeRemaining = {{ category.time }} * 60;
+            displayQuestion();
+            startTimer();
+        });
+        return true;
+    }
+    return false;
+}
+function startTimer() {
+    timerInterval = setInterval(function() {
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            endQuizDueToTime();
+            return;
+        }
+        timeRemaining--;
+        updateTimerDisplay();
+        if (timeRemaining === 60) {
+            document.getElementById("timer").style.color = "orange";
+        }
+        if (timeRemaining <= 10) {
+            document.getElementById("timer").style.color = "red";
+        }
+    }, 1000);
+}
+function updateTimerDisplay() {
+    const minutes = Math.floor(timeRemaining / 60);
+    const seconds = timeRemaining % 60;
+    const formattedTime =
+        `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    document.getElementById("timer").textContent = formattedTime;
+}
+function endQuizDueToTime() {
+    quizEnded = true;
+    clearInterval(timerInterval);
+    clearQuizState();
+    
+    // Prevent back navigation
+    history.replaceState({ quizCompleted: true }, document.title, window.location.href);
+    window.addEventListener('popstate', function(event) {
+        history.forward();
+    });
+    
+    if (nextButton) {
+        nextButton.disabled = true;
+    }
+    document.querySelectorAll(".option-button").forEach(btn => {
+        btn.disabled = true;
+    });
+    quizContainer.innerHTML = `
+        <div class="quiz-finished">
+            <div class="finished-icon">⏱</div>
+            <p class="finished-tag">TIME'S UP</p>
+            <h2>Quiz Time Ended!</h2>
+            <p class="finished-text">
+                The time limit for this quiz has been reached.
+            </p>
+            <div class="score-display">
+                <span>Your Score</span>
+                <strong>${score} / ${questionsData.length}</strong>
+            </div>
+            <div class="quiz-result-buttons">
+                <a href="{% url 'dashboard' %}" class="btn-home">
+                    Back to Dashboard
+                </a>
+            </div>
+        </div>
+    `;
+    fetch("{% url 'save_score' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: `score=${score}&category_id={{ category.id }}&total_question=${questionsData.length}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Score saved successfully:', data);
+    })
+    .catch(error => {
+        console.error('Error saving score:', error);
+    });
+}
+function displayQuestion() {
+    const questionCards =
+        document.querySelectorAll(".question-card");
+    questionCards.forEach(card => {
+        card.style.display = "none";
+    });
+    const currentQuestion =
+        questionCards[currentQuestionIndex];
+    if (currentQuestion) {
+        currentQuestion.style.display = "block";
+    }
+    const progress =
+        ((currentQuestionIndex + 1) / questionsData.length) * 100;
+    document.getElementById("progress-fill").style.width =
+        `${progress}%`;
+    if (nextButton) {
+        nextButton.disabled = true;
+    }
+    selectedAnswer = null;
+    document.querySelectorAll(".option-button").forEach(button => {
+        button.disabled = false;
+        button.classList.remove("selected");
+    });
+}
+document.querySelectorAll(".option-button").forEach(button => {
+    button.addEventListener("click", function() {
+        selectedAnswer = this.dataset.answer;
+        document.querySelectorAll(".option-button").forEach(btn => {
+            btn.classList.remove("selected");
+        });
+        this.classList.add("selected");
+        if (nextButton) {
+            nextButton.disabled = false;
+        }
+        saveQuizState();
+    });
+});
+if (nextButton) {
+    nextButton.addEventListener("click", function() {
+        if (quizEnded) return;
+        const question =
+            questionsData[currentQuestionIndex];
+        if (selectedAnswer === question.correct_answer) {
+            score++;
+        }
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questionsData.length) {
+            selectedAnswer = null;
+            displayQuestion();
+            saveQuizState();
+        } else {
+            quizEnded = true;
+            clearInterval(timerInterval);
+            clearQuizState();
+            
+            // Prevent back navigation
+            history.replaceState({ quizCompleted: true }, document.title, window.location.href);
+            window.addEventListener('popstate', function(event) {
+                history.forward();
+            });
+            
+            // Save score and verify success
+            fetch("{% url 'save_score' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: `score=${score}&category_id={{ category.id }}&total_question=${questionsData.length}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Score saved successfully:', data);
+            })
+            .catch(error => {
+                console.error('Error saving score:', error);
+            });
+            quizContainer.innerHTML = `
+                <div class="quiz-finished">
+                    <div class="finished-icon">✓</div>
+                    <p class="finished-tag">
+                        QUIZ COMPLETE
+                    </p>
+                    <h2>Quiz Finished!</h2>
+                    <p class="finished-text">
+                        You have completed all the available questions.
+                    </p>
+                    <div class="score-display">
+                        <span>Your Score</span>
+                        <strong>
+                            ${score} / ${questionsData.length}
+                        </strong>
+                    </div>
+                    <div class="quiz-result-buttons">
+                        <a href="{% url 'dashboard' %}" class="btn-home">
+                            Back to Dashboard
+                        </a>
+                        {% if user.is_authenticated and user.is_superuser %}
+                            <a href="{% url 'create_question' %}"
+                               class="add-more-questions">
+                                Add More Questions +
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            `;
+        }
+    });
+}
+const hasSession = checkForSavedSession();
+if (!hasSession) {
+    displayQuestion();
+    startTimer();
+}
+</script>
+{% endblock %}

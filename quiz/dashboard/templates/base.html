@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzo | Test Your Knowledge</title>
+{% load static %}
+
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">  
+  <link rel="stylesheet" href="{% static 'css/create_questions.css' %}">  
+  <link rel="stylesheet" href="{% static 'css/superuserpage.css' %}">  
+  <link rel="stylesheet" href="{% static 'css/viewquestion.css' %}">  
+  <link rel="stylesheet" href="{% static 'css/viewScores.css' %}"> 
+  <link rel="stylesheet" href="{% static 'css/admin_form.css' %}">  
+  <link rel="stylesheet" href="{% static 'css/update_things.css' %}">
+  <link rel="stylesheet" href="{% static 'css/view_all_user.css' %}">
+  <link rel="stylesheet" href="{% static 'css/ai_generated.css' %}">
+  <link rel="stylesheet" href="{% static 'css/upload.css' %}">
+  <link rel="stylesheet" href="{% static 'css/viewaddedquestion.css' %}">
+
+
+   
+
+  <link rel="stylesheet" href="{% static 'css/questions.css' %}">  
+
+
+
+
+  <link rel="stylesheet" href="{% static 'css/loginandregister.css' %}">  
+
+  <style>
+    
+    body{
+    min-height:100vh;
+    margin:0;
+    background:#0f172a;
+    color:#fff;
+    overflow-x:hidden;
+    position:relative;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
+}
+
+.site-messages {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: min(420px, calc(100% - 40px));
+}
+
+.site-message {
+    margin-bottom: 10px;
+    padding: 14px 18px;
+    border-left: 5px solid;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #172033;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.site-message-success {
+    border-color: #16a34a;
+}
+
+.site-message-warning {
+    border-color: #d97706;
+}
+
+.site-message-error {
+    border-color: #dc2626;
+}
+
+  </style>
+
+</head>
+
+</style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+{% load static %}
+<body>
+    {% if messages %}
+        <div class="site-messages" role="status" aria-live="polite">
+            {% for message in messages %}
+                <div class="site-message site-message-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <script>
+        window.setTimeout(function () {
+            document.querySelectorAll('.site-message').forEach(function (message) {
+                message.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                message.style.opacity = '0';
+                message.style.transform = 'translateX(20px)';
+
+                window.setTimeout(function () {
+                    message.remove();
+                }, 400);
+            });
+        }, 5000);
+    </script>
+
+    {% block content %}
+
+    {% endblock %}
+</body>
+</html>

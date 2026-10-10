@@ -1,0 +1,665 @@
+/* ========================================
+   QUIZZO EXCEL QUESTION IMPORT
+   ALL CLASSES ARE UNIQUE TO THIS PAGE
+   ======================================== */
+
+.excel-import-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 30px 25px 60px;
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   BACK BUTTON
+   ======================================== */
+
+.excel-import-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 9px 14px;
+
+    background: #1e293b;
+    color: #cbd5e1;
+
+    border: 1px solid #334155;
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+
+    transition: all 0.2s ease;
+}
+
+.excel-import-back-btn:hover {
+    background: #252f45;
+    color: #a5b4fc;
+    border-color: #6366f1;
+    transform: translateX(-2px);
+}
+
+
+/* ========================================
+   MAIN CONTAINER
+   ======================================== */
+
+.excel-import-container {
+    position: relative;
+
+    width: 100%;
+    max-width: 850px;
+
+    margin: 30px auto 0;
+
+    padding: 38px 42px;
+
+    box-sizing: border-box;
+
+    background: #171d2b;
+
+    border: 1px solid #293246;
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.35),
+        0 4px 12px rgba(79, 70, 229, 0.10);
+
+    overflow: hidden;
+}
+
+.excel-import-container::before {
+    content: "";
+
+    position: absolute;
+
+    top: -100px;
+    right: -100px;
+
+    width: 230px;
+    height: 230px;
+
+    background: rgba(99, 102, 241, 0.08);
+
+    border-radius: 50%;
+
+    filter: blur(12px);
+
+    pointer-events: none;
+}
+
+
+/* ========================================
+   HEADING
+   ======================================== */
+
+.excel-import-heading {
+    position: relative;
+}
+
+.excel-import-heading span {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #818cf8;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.6px;
+}
+
+.excel-import-heading h1 {
+    margin: 0;
+
+    color: #f8fafc;
+
+    font-size: 29px;
+    font-weight: 750;
+
+    letter-spacing: -0.5px;
+}
+
+.excel-import-heading p {
+    margin: 7px 0 0;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   DIVIDER
+   ======================================== */
+
+.excel-import-divider {
+    width: 100%;
+    height: 1px;
+
+    margin: 30px 0;
+
+    background: #293246;
+}
+
+
+/* ========================================
+   STEP
+   ======================================== */
+
+.excel-import-step {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 17px;
+
+    margin-bottom: 28px;
+}
+
+.excel-import-step:last-child {
+    margin-bottom: 0;
+}
+
+
+/* ========================================
+   STEP NUMBER
+   ======================================== */
+
+.excel-import-step-number {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #252c4a;
+    color: #818cf8;
+
+    border: 1px solid #343d62;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    transition: all 0.25s ease;
+}
+
+.excel-import-step:hover .excel-import-step-number {
+    background: #30385d;
+    border-color: #6366f1;
+    color: #a5b4fc;
+
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   STEP CONTENT
+   ======================================== */
+
+.excel-import-step-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.excel-import-step-title {
+    margin-bottom: 3px;
+
+    color: #818cf8;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.excel-import-step-content h3 {
+    margin: 0;
+
+    color: #f1f5f9;
+
+    font-size: 16px;
+    font-weight: 650;
+}
+
+.excel-import-step-content > p {
+    margin: 6px 0 15px;
+
+    color: #8b98ad;
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   DOWNLOAD BUTTON
+   ======================================== */
+
+.excel-import-download-btn {
+    width: 100%;
+    min-height: 70px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 13px 15px;
+
+    box-sizing: border-box;
+
+    background: #111827;
+
+    border: 1px solid #293246;
+    border-radius: 11px;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    transition: all 0.25s ease;
+}
+
+.excel-import-download-btn:hover {
+    background: #1c2537;
+
+    border-color: #4b5578;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.20);
+}
+
+
+/* ========================================
+   DOWNLOAD ICON
+   ======================================== */
+
+.excel-import-download-icon {
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: #252c4a;
+    color: #818cf8;
+
+    border: 1px solid #343d62;
+
+    font-size: 17px;
+
+    transition: all 0.25s ease;
+}
+
+.excel-import-download-btn:hover .excel-import-download-icon {
+    background: #30385d;
+    border-color: #6366f1;
+    color: #a5b4fc;
+}
+
+
+/* ========================================
+   BUTTON TEXT
+   ======================================== */
+
+.excel-import-button-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.excel-import-button-text strong {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #f1f5f9;
+
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.excel-import-button-text small {
+    display: block;
+
+    color: #7f8ca3;
+
+    font-size: 10px;
+}
+
+
+/* ========================================
+   DOWNLOAD ARROW
+   ======================================== */
+
+.excel-import-button-arrow {
+    width: 34px;
+    height: 32px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background: #252c4a;
+    color: #a5b4fc;
+
+    font-size: 16px;
+
+    transition: all 0.2s ease;
+}
+
+.excel-import-download-btn:hover .excel-import-button-arrow {
+    background: #4f46e5;
+    color: #ffffff;
+
+    transform: translateX(3px);
+}
+
+
+/* ========================================
+   UPLOAD FORM
+   ======================================== */
+
+.excel-import-upload-form {
+    width: 100%;
+
+    display: flex;
+    align-items: stretch;
+
+    gap: 10px;
+}
+
+
+/* ========================================
+   FILE AREA
+   ======================================== */
+
+.excel-import-file-area {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 11px 12px;
+
+    box-sizing: border-box;
+
+    background: #111827;
+
+    border: 1px solid #293246;
+    border-radius: 11px;
+
+    transition: all 0.2s ease;
+}
+
+.excel-import-file-area:focus-within {
+    border-color: #6366f1;
+
+    box-shadow:
+        0 0 0 3px rgba(99, 102, 241, 0.10);
+}
+
+
+/* ========================================
+   UPLOAD ICON
+   ======================================== */
+
+.excel-import-upload-icon {
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: #252c4a;
+    color: #818cf8;
+
+    border: 1px solid #343d62;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+/* ========================================
+   FILE CONTENT
+   ======================================== */
+
+.excel-import-file-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.excel-import-file-content strong {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: #e2e8f0;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.excel-import-file-content small {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #718096;
+
+    font-size: 9px;
+}
+
+
+/* ========================================
+   CHOOSE FILE
+   ======================================== */
+
+.excel-import-file-input {
+    display: block;
+
+    width: 100%;
+
+    color: #94a3b8;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    cursor: pointer;
+}
+
+.excel-import-file-input::file-selector-button {
+    margin-right: 8px;
+
+    padding: 6px 10px;
+
+    border: 1px solid #4f46e5;
+    border-radius: 6px;
+
+    background: #4f46e5;
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.excel-import-file-input::file-selector-button:hover {
+    background: #6366f1;
+    border-color: #818cf8;
+
+    box-shadow:
+        0 4px 10px rgba(79, 70, 229, 0.25);
+}
+
+
+/* ========================================
+   SEND BUTTON
+   ======================================== */
+
+.excel-import-send-btn {
+    flex-shrink: 0;
+
+    width: 105px;
+
+    border: 1px solid #6366f1;
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #4f46e5,
+        #6366f1
+    );
+
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    font-family: inherit;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 15px rgba(79, 70, 229, 0.20);
+
+    transition: all 0.2s ease;
+}
+
+.excel-import-send-btn:hover {
+    background: linear-gradient(
+        135deg,
+        #6366f1,
+        #7c3aed
+    );
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 20px rgba(79, 70, 229, 0.30);
+}
+
+.excel-import-send-btn:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 4px 10px rgba(79, 70, 229, 0.20);
+}
+
+.excel-import-send-arrow {
+    font-size: 15px;
+
+    transition: transform 0.2s ease;
+}
+
+.excel-import-send-btn:hover .excel-import-send-arrow {
+    transform: translateX(3px);
+}
+
+
+/* ========================================
+   MOBILE
+   ======================================== */
+
+@media (max-width: 650px) {
+
+    .excel-import-page {
+        padding: 20px 12px 40px;
+    }
+
+    .excel-import-container {
+        margin-top: 22px;
+        padding: 26px 18px;
+        border-radius: 14px;
+    }
+
+    .excel-import-heading h1 {
+        font-size: 23px;
+    }
+
+    .excel-import-heading p {
+        font-size: 12px;
+    }
+
+    .excel-import-divider {
+        margin: 24px 0;
+    }
+
+    .excel-import-step {
+        gap: 11px;
+        margin-bottom: 23px;
+    }
+
+    .excel-import-step-number {
+        width: 35px;
+        height: 35px;
+        border-radius: 9px;
+        font-size: 9px;
+    }
+
+    .excel-import-step-content h3 {
+        font-size: 14px;
+    }
+
+    .excel-import-step-content > p {
+        font-size: 10px;
+    }
+
+    .excel-import-upload-form {
+        flex-direction: column;
+    }
+
+    .excel-import-file-area {
+        width: 100%;
+    }
+
+    .excel-import-send-btn {
+        width: 100%;
+        height: 42px;
+    }
+
+    .excel-import-download-btn {
+        min-height: 64px;
+    }
+}

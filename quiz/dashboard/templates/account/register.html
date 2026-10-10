@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<form method="post" id="registrationForm" autocomplete="off">
+            {% csrf_token %}
+        {% if form.errors %}
+            <div class="form-errors" role="alert" aria-live="polite">
+                <div class="form-errors-header">
+                    <strong>We couldn't create your account</strong>
+                    <button type="button" class="dismiss-errors" aria-label="Dismiss error message">&times;</button>
+                </div>
+                <p class="form-errors-intro">Please review the details below and try again.</p>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        
+<div class="registercontainer">
+    <label for="username">Username</label>
+    <input type = "text" class = "registerUsername" placeholder="Username" required name="username" id="username" autocomplete="name" ><P></P>
+        <label for="email">Email</label>
+    <input type = "text" class = "registerUsername" placeholder="E-mail" required name="email" id="email" autocomplete="email" ><P></P>
+    
+    <label name="password">Password</label>
+    <input type = "text" class = "registerPassword" placeholder="password" required name="password1" id="password" autocomplete="new-password" ><P></P>
+    <label name ="confirm_password">Confirm Password</label>
+    <input  type = "text" class = "registerConfirmPassword" placeholder="password" required name ="password2"id="confirm_password" autocomplete="new-password" ><P></P>
+    <label>Already have an account <a href="{% url 'login' %}" class = "loginConfirm">LOGIN</a></label><p></p>
+    
+    <button type="submit" class="register" >Register</button>
+
+</div>
+</form>
+
+<script>
+    const errorNotice = document.querySelector(".form-errors")
+    const dismissErrors = document.querySelector(".dismiss-errors")
+
+    if (errorNotice && dismissErrors) {
+        dismissErrors.addEventListener("click", function () {
+            errorNotice.remove()
+        })
+    }
+</script>
+{% endblock %}

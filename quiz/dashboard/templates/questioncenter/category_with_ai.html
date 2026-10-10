@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<main class="ai-category-page">
+
+    {% if user.is_superuser %}
+        <a href="{% url 'superuserpage' %}" class="ai-category-back-btn">
+            ← Back to Admin Panel
+        </a>
+    {% elif user.is_admin %}
+        <a href="{% url 'adminpage' %}" class="ai-category-back-btn">
+            ← Back to Admin Panel
+        </a>
+    {% endif %}
+
+    <div class="ai-category-card">
+
+        <div class="ai-category-header">
+
+            <div class="ai-category-icon">
+                ✦
+            </div>
+
+            <div class="ai-category-heading">
+                <div class="ai-category-label">
+                    <span class="ai-category-pulse"></span>
+                    NEW CATEGORY BUILDER
+                </div>
+
+                <h1>Create a Category with AI</h1>
+
+                <p>
+                    Create a new quiz category and automatically generate
+                    questions based on your settings.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="ai-category-divider"></div>
+
+        <form method="post" class="ai-category-form">
+
+            {% csrf_token %}
+
+            <div class="ai-category-form-group">
+
+                <label for="category_name">
+                    Category Name
+                    <span>Enter the name of your new quiz category.</span>
+                </label>
+
+                <div class="ai-category-input-wrapper">
+                    <span class="ai-category-input-icon">▦</span>
+
+                    <input
+                        id="category_name"
+                        name="category_name"
+                        type="text"
+                        maxlength="30"
+                        placeholder="e.g. Web Development"
+                        required
+                    >
+                </div>
+
+            </div>
+
+
+            <div class="ai-category-form-row">
+
+                <div class="ai-category-form-group">
+
+                    <label for="time">
+                        Quiz Time
+                        <span>Set the time limit in minutes.</span>
+                    </label>
+
+                    <div class="ai-category-input-wrapper">
+                        <span class="ai-category-input-icon">◷</span>
+
+                        <input
+                            id="time"
+                            type="number"
+                            name="time"
+                            min="1"
+                            max="600"
+                            value="60"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+
+                <div class="ai-category-form-group">
+
+                    <label for="question_count">
+                        Number of Questions
+                        <span>Choose between 1 and 20 questions.</span>
+                    </label>
+
+                    <div class="ai-category-input-wrapper">
+                        <span class="ai-category-input-icon">#</span>
+
+                        <input
+                            id="question_count"
+                            type="number"
+                            name="question_count"
+                            min="1"
+                            max="20"
+                            value="1"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="ai-category-form-group">
+
+                <label for="difficulty">
+                    Difficulty
+                    <span>Select the difficulty level for generated questions.</span>
+                </label>
+
+                <div class="ai-category-input-wrapper">
+                    <span class="ai-category-input-icon">◆</span>
+
+                    <select
+                        id="difficulty"
+                        name="difficulty"
+                        required
+                    >
+                        <option value="easy">Easy</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+            <div class="ai-category-info">
+
+                <div class="ai-category-info-icon">
+                    ✦
+                </div>
+
+                <div>
+                    <strong>Powered by Quizzo AI</strong>
+
+                    <p>
+                        Your category will be created automatically and
+                        questions will be generated using your selected
+                        difficulty and question count.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <button type="submit" class="ai-category-create-btn">
+
+                <span class="ai-category-create-icon">✦</span>
+
+                <span>Create Category & Questions</span>
+
+                <span class="ai-category-create-arrow">→</span>
+
+            </button>
+
+        </form>
+
+    </div>
+
+</main>
+
+{% endblock %}

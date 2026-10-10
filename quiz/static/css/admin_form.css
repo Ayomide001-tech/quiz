@@ -1,0 +1,346 @@
+/* =========================================
+ADMIN REGISTRATION PAGE
+========================================= */
+
+.admin-registration-page{
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+    position:relative;
+    z-index:2;
+    box-sizing:border-box;
+}
+
+
+/* =========================================
+ADMIN REGISTRATION CARD
+========================================= */
+
+.admin-registration-card{
+    width:100%;
+    max-width:520px;
+    padding:45px;
+    box-sizing:border-box;
+    border-radius:28px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    box-shadow:0 25px 60px rgba(0,0,0,.35);
+    animation:adminFormAnimation .8s ease forwards;
+}
+
+
+/* =========================================
+HEADING
+========================================= */
+
+.admin-registration-heading{
+    margin-bottom:32px;
+}
+
+.admin-registration-tag{
+    display:inline-block;
+    padding:7px 14px;
+    margin:0 0 14px;
+    border-radius:30px;
+    background:rgba(124,58,237,.15);
+    border:1px solid rgba(167,139,250,.25);
+    color:#c4b5fd;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+.admin-registration-heading h1{
+    margin:0 0 10px;
+    color:#fff;
+    font-size:clamp(28px,4vw,40px);
+    line-height:1.2;
+    letter-spacing:-1px;
+}
+
+.admin-registration-heading p:last-child{
+    margin:0;
+    color:rgba(255,255,255,.6);
+    font-size:14px;
+    line-height:1.7;
+}
+
+
+/* =========================================
+FORM - IMPORTANT
+This prevents other CSS from making
+your form display horizontally
+========================================= */
+
+#adminregistrationForm{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+}
+
+#adminregistrationForm *{
+    box-sizing:border-box;
+}
+
+
+/* =========================================
+FORM ERRORS
+========================================= */
+
+.form-errors{
+    width:100%;
+    margin-bottom:22px;
+    padding:14px 16px;
+    border-radius:12px;
+    background:rgba(239,68,68,.1);
+    border:1px solid rgba(239,68,68,.25);
+}
+
+.form-errors p{
+    margin:5px 0;
+    color:#fca5a5;
+    font-size:13px;
+}
+
+
+/* =========================================
+FORM GROUP
+========================================= */
+
+#adminregistrationForm .admin-group{
+    width:100%;
+    display:block;
+    margin-bottom:20px;
+}
+
+#adminregistrationForm .admin-group label{
+    display:block;
+    width:100%;
+    margin-bottom:8px;
+    color:#f8fafc;
+    font-size:14px;
+    font-weight:500;
+}
+
+#adminregistrationForm .admin-group input{
+    display:block;
+    width:100%;
+    height:54px;
+    padding:0 16px;
+    box-sizing:border-box;
+    border:1px solid rgba(255,255,255,.18);
+    outline:none;
+    border-radius:12px;
+    background:rgba(255,255,255,.07);
+    color:#fff;
+    font-size:14px;
+    transition:border .3s ease,
+               background .3s ease,
+               box-shadow .3s ease,
+               transform .3s ease;
+}
+
+#adminregistrationForm .admin-group input::placeholder{
+    color:rgba(255,255,255,.4);
+}
+
+#adminregistrationForm .admin-group input:focus{
+    border-color:#a78bfa;
+    background:rgba(255,255,255,.11);
+    box-shadow:0 0 0 4px rgba(167,139,250,.12);
+    transform:translateY(-2px);
+}
+
+
+/* =========================================
+SUPER USER ACCESS
+========================================= */
+
+#adminregistrationForm .superuser-check{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    margin:8px 0 28px;
+    padding:16px;
+    box-sizing:border-box;
+    cursor:pointer;
+    border-radius:14px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.1);
+    transition:background .3s ease,
+               border .3s ease,
+               transform .3s ease;
+}
+
+#adminregistrationForm .superuser-check:hover{
+    transform:translateY(-2px);
+    background:rgba(124,58,237,.1);
+    border-color:rgba(167,139,250,.35);
+}
+
+
+/* Hide normal checkbox */
+
+#adminregistrationForm .superuser-check input{
+    position:absolute;
+    width:1px;
+    height:1px;
+    opacity:0;
+}
+
+
+/* Custom checkbox */
+
+#adminregistrationForm .custom-checkbox{
+    width:22px;
+    height:22px;
+    flex-shrink:0;
+    position:relative;
+    border-radius:7px;
+    border:1px solid rgba(255,255,255,.3);
+    background:rgba(255,255,255,.06);
+    transition:background .3s ease,
+               border .3s ease,
+               transform .3s ease;
+}
+
+#adminregistrationForm .superuser-check input:checked + .custom-checkbox{
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    border-color:transparent;
+}
+
+#adminregistrationForm .superuser-check input:checked + .custom-checkbox::after{
+    content:"✓";
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-52%);
+    color:#fff;
+    font-size:14px;
+    font-weight:700;
+}
+
+#adminregistrationForm .superuser-check:hover .custom-checkbox{
+    transform:scale(1.08);
+}
+
+
+/* =========================================
+SUPER USER TEXT
+========================================= */
+
+.superuser-check-text{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+}
+
+.superuser-check-text strong{
+    color:#fff;
+    font-size:14px;
+    font-weight:600;
+}
+
+.superuser-check-text small{
+    color:rgba(255,255,255,.5);
+    font-size:11px;
+    line-height:1.5;
+}
+
+
+/* =========================================
+CREATE ADMIN BUTTON
+========================================= */
+
+#adminregistrationForm .admin-btn{
+    width:100%;
+    height:56px;
+    display:block;
+    border:none;
+    outline:none;
+    border-radius:13px;
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    color:#fff;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow:0 12px 28px rgba(37,99,235,.3);
+    transition:transform .25s ease,
+               box-shadow .25s ease,
+               filter .25s ease;
+}
+
+#adminregistrationForm .admin-btn span{
+    display:inline;
+    margin-left:8px;
+    font-size:20px;
+    transition:margin-left .3s ease;
+}
+
+#adminregistrationForm .admin-btn:hover{
+    transform:translateY(-3px);
+    filter:brightness(1.1);
+    box-shadow:0 18px 35px rgba(124,58,237,.4);
+}
+
+#adminregistrationForm .admin-btn:hover span{
+    margin-left:14px;
+}
+
+#adminregistrationForm .admin-btn:active{
+    transform:translateY(0) scale(.99);
+}
+
+
+/* =========================================
+ANIMATION
+========================================= */
+
+@keyframes adminFormAnimation{
+    from{
+        opacity:0;
+        transform:translateY(35px) scale(.97);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================
+MOBILE
+========================================= */
+
+@media(max-width:600px){
+
+    .admin-registration-page{
+        padding:25px 15px;
+        align-items:flex-start;
+    }
+
+    .admin-registration-card{
+        padding:35px 20px;
+        border-radius:22px;
+    }
+
+    .admin-registration-heading{
+        margin-bottom:28px;
+    }
+
+    #adminregistrationForm .admin-group input{
+        height:52px;
+    }
+
+    #adminregistrationForm .superuser-check{
+        padding:14px;
+    }
+}

@@ -1,0 +1,345 @@
+
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
+
+
+
+/* =========================================
+DJANGO FORM
+This is the important part that fixes the size
+========================================= */
+form{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#loginAuthenticationForm,
+#registrationForm{
+    flex-direction:column;
+}
+
+/* =========================================
+REGISTER AND LOGIN CONTAINERS
+========================================= */
+.registercontainer,
+.loginContainer{
+    width:100%;
+    max-width:430px;
+    padding:45px 40px;
+    border-radius:25px;
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.18);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.4),
+        inset 0 1px 1px rgba(255,255,255,.15);
+    animation:slideUp .8s ease forwards;
+}
+
+/* =========================================
+ANIMATION
+========================================= */
+@keyframes slideUp{
+    from{
+        opacity:0;
+        transform:translateY(40px) scale(.97);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+/* =========================================
+NORMAL LABELS
+========================================= */
+.registercontainer>label,
+.loginContainer>label{
+    display:block;
+    color:#fff;
+    font-size:14px;
+    font-weight:500;
+    margin-bottom:8px;
+    letter-spacing:.3px;
+}
+
+/* =========================================
+TEXT AND PASSWORD INPUTS
+========================================= */
+.registercontainer input[type="text"],
+.registercontainer input[type="password"],
+.loginContainer input[type="text"],
+.loginContainer input[type="password"]{
+    width:100%;
+    height:54px;
+    padding:0 16px;
+    border:1px solid rgba(255,255,255,.18);
+    outline:none;
+    border-radius:12px;
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    font-size:15px;
+    transition:border .3s ease,background .3s ease,box-shadow .3s ease,transform .3s ease;
+}
+
+/* =========================================
+PLACEHOLDER
+========================================= */
+.registercontainer input::placeholder,
+.loginContainer input::placeholder{
+    color:rgba(255,255,255,.5);
+}
+
+/* =========================================
+INPUT FOCUS
+========================================= */
+.registercontainer input[type="text"]:focus,
+.registercontainer input[type="password"]:focus,
+.registercontainer input[type="email"]:focus,
+.loginContainer input[type="text"]:focus,
+.loginContainer input[type="password"]:focus{
+    border-color:#a78bfa;
+    background:rgba(255,255,255,.12);
+    box-shadow:
+        0 0 0 4px rgba(167,139,250,.15),
+        0 8px 20px rgba(0,0,0,.15);
+    transform:translateY(-2px);
+}
+
+
+/* =========================================
+SPACING FROM YOUR P TAGS
+========================================= */
+.registercontainer>p,
+.loginContainer>p{
+    height:14px;
+}
+
+/* =========================================
+LOGIN AND REGISTER TEXT
+========================================= */
+.registercontainer>label:last-of-type,
+.loginContainer>label:last-of-type{
+    text-align:center;
+    margin-top:8px;
+    color:rgba(255,255,255,.7);
+    font-size:13px;
+    line-height:1.6;
+}
+
+/* =========================================
+LINKS
+========================================= */
+.loginConfirm,
+.dont_have_an_account_register{
+    color:#c4b5fd;
+    font-weight:700;
+    cursor:pointer;
+    margin-left:5px;
+    text-decoration:none;
+    transition:color .3s ease,letter-spacing .3s ease;
+}
+
+.loginConfirm:hover,
+.dont_have_an_account_register:hover{
+    color:#fff;
+    letter-spacing:.5px;
+}
+
+/* =========================================
+SHOW PASSWORD
+========================================= */
+.show-password-container{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:10px;
+    margin-top:-5px;
+    margin-bottom:15px;
+}
+
+.show-password-container label{
+    color:rgba(255,255,255,.75);
+    font-size:13px;
+    cursor:pointer;
+    order:2;
+}
+
+.show-password-container input[type="checkbox"]{
+    width:18px;
+    height:18px;
+    cursor:pointer;
+    accent-color:#8b5cf6;
+    order:1;
+}
+
+/* =========================================
+LOGIN AND REGISTER BUTTONS
+========================================= */
+.register,
+.login{
+    width:100%;
+    height:54px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    color:#fff;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(37,99,235,.35);
+    transition:transform .25s ease,box-shadow .25s ease,filter .25s ease;
+}
+
+.register:hover,
+.login:hover{
+    transform:translateY(-3px);
+    filter:brightness(1.1);
+    box-shadow:0 15px 35px rgba(124,58,237,.45);
+}
+
+.register:active,
+.login:active{
+    transform:translateY(0) scale(.98);
+}
+
+/* =========================================
+BUTTON SHINE EFFECT
+========================================= */
+.register::before,
+.login::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:70%;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.25),
+        transparent
+    );
+    transform:skewX(-20deg);
+    transition:left .7s ease;
+}
+
+.register:hover::before,
+.login:hover::before{
+    left:150%;
+}
+
+/* =========================================
+FORM ERRORS
+========================================= */
+.form-errors{
+    position:fixed;
+    top:24px;
+    right:24px;
+    z-index:1000;
+    width:min(430px, calc(100vw - 48px));
+    margin:0;
+    padding:15px 17px;
+    border-radius:12px;
+    color:#fee2e2;
+    background:rgba(127,29,29,.55);
+    border:1px solid rgba(252,165,165,.45);
+    font-size:13px;
+    box-sizing:border-box;
+    box-shadow:0 10px 25px rgba(0,0,0,.18);
+}
+
+.form-errors-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    color:#fff;
+    font-size:14px;
+}
+
+.form-errors-intro{
+    margin:8px 0;
+    color:#fecaca;
+}
+
+.dismiss-errors{
+    width:28px;
+    height:28px;
+    padding:0;
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:50%;
+    background:transparent;
+    color:#fff;
+    font-size:20px;
+    line-height:1;
+    cursor:pointer;
+}
+
+.dismiss-errors:hover,
+.dismiss-errors:focus-visible{
+    background:rgba(255,255,255,.15);
+}
+
+.form-errors:has(.form-errors-intro) p:not(.form-errors-intro){
+    margin:5px 0 0;
+    padding-left:18px;
+    position:relative;
+}
+
+.form-errors:has(.form-errors-intro) p:not(.form-errors-intro)::before{
+    content:"•";
+    position:absolute;
+    left:3px;
+    color:#fca5a5;
+}
+
+.form-errors p{
+    margin:0;
+}
+
+/* =========================================
+MOBILE
+========================================= */
+@media(max-width:500px){
+    body{
+        padding:15px;
+    }
+
+    .form-errors{
+        top:15px;
+        right:15px;
+        width:calc(100vw - 30px);
+    }
+
+    .registercontainer,
+    .loginContainer{
+        padding:35px 25px;
+        border-radius:20px;
+    }
+
+    .registercontainer input[type="text"],
+    .registercontainer input[type="password"],
+    .loginContainer input[type="text"],
+    .loginContainer input[type="password"]{
+        height:50px;
+    }
+
+    .register,
+    .login{
+        height:52px;
+    }
+}
+
+.loginContainer {
+    margin-top: 50px;
+}

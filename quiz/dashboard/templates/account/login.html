@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<form method="post" id="loginAuthenticationForm" action="" >
+            {% csrf_token %}
+        {% if form.errors %}
+            <div class="form-errors" role="alert" aria-live="polite">
+                <div class="form-errors-header">
+                    <strong>We couldn't log you in</strong>
+                    <button type="button" class="dismiss-errors" aria-label="Dismiss error message">&times;</button>
+                </div>
+                <p class="form-errors-intro">Please check the details below and try again.</p>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        
+    <div class="loginContainer">
+    <label for="id_email">E-mail</label>
+    <input id="id_email" type="text" class="username" placeholder="E-mail" required name="email" value="{{ form.email.value|default:'' }}" autocomplete="email"><P></P>
+    <label for="password">Password</label>
+    <input id="password" type = "password" class = "password" placeholder="password" required  name="password"  autocomplete="new-password"><P></P>
+    <div class="show-password-container">
+        <label for="showpassword">Show Password</label>
+        <input type="checkbox" class="showpassword" id="showpassword">
+    </div>
+
+    <label>Do not have an account <a href="{% url 'register' %}" class = "dont_have_an_account_register"  >REGISTER</a></label><p></p>
+    <button class="login" type="submit">Login</button>
+</div>
+<script>
+    const showpassword = document.querySelector(".showpassword")
+    const passwords = document.getElementById("password")
+showpassword.addEventListener("click", function(){
+if(this.checked){
+    passwords.type="text"
+}else{
+    passwords.type="password"
+}
+})
+  
+</script>
+<script>
+    const errorNotice = document.querySelector(".form-errors")
+    const dismissErrors = document.querySelector(".dismiss-errors")
+
+    if (errorNotice && dismissErrors) {
+        dismissErrors.addEventListener("click", function () {
+            errorNotice.remove()
+        })
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="dashboard-page">
+
+<header class="dashboard-header">
+    <a href="{% url 'dashboard' %}" class="dashboard-logo">Quiz<span>zo</span></a>
+
+    <nav class="dashboard-nav">
+        <a href="{% url 'dashboard' %}" class="nav-active">Home</a>
+        <a href="#" class="help_button">Help</a>
+
+        <div class="account_dropdown">
+            <button class="account_present_user" id="accountButton" type="button">
+                <span class="user-avatar">{{ user.username|first|upper }}</span>
+                <span class="user-greeting">Hi, {{ user.username }}</span>
+                <span class="dropdown-arrow">⌄</span>
+            </button>
+
+            <div class="dropdown_content" id="dropdownContent">
+                <a href="#" class="my_account">
+                    <span>👤</span>
+                    My Account
+                </a>
+
+                <a href="#" class="my_order">
+                    <span>📚</span>
+                    Past Quizzes
+                </a>
+            </div>
+        </div>
+
+        <a href="{% url 'logout_view' %}" class="dashboard-logout">Logout</a>
+    </nav>
+</header>
+{% if user.is_authenticated and user.is_superuser %}
+<a href="{% url 'superuserpage' %}" class="create-back-btn"> back </a>
+
+
+{% elif user.is_authenticated and user.is_admin %}
+<a href="{% url 'adminpage' %}" class="create-back-btn"> back </a>
+{% endif %}
+
+
+<main class="dashboard-main">
+
+    <section class="dashboard-hero">
+        <div class="dashboard-hero-content">
+            <p class="dashboard-tag">
+                <span></span>
+                READY TO LEARN
+            </p>
+
+            <h1>Choose a quiz and <span>test yourself.</span></h1>
+
+            <p class="dashboard-description">
+                Select a category below, challenge your knowledge, and track your progress as you learn.
+            </p>
+
+            <div class="dashboard-user-info">
+                <div class="dashboard-user-icon">✦</div>
+                <div>
+                    <strong>Unlimited Learning</strong>
+                    <p>Explore different topics and improve your knowledge.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-hero-card">
+            <div class="hero-card-glow"></div>
+
+            <div class="hero-card-icon">?</div>
+
+            <p>QUIZZO</p>
+            <h2>Ready for your next challenge?</h2>
+            <span>Choose a category below and begin.</span>
+        </div>
+    </section>
+
+
+    <section class="quiz-category-section">
+
+        <div class="category-heading">
+            <div>
+                <p class="category-small-title">EXPLORE QUIZZES</p>
+                <h2>Quiz Categories</h2>
+                <p>Select a category and start testing your knowledge.</p>
+            </div>
+        </div>
+
+        {% for category in categorys %}
+
+        <div class="category-grid">
+            <a href="{% url 'category_questions' category.id %}" class="category-card ">
+                <div class="category-icon"></div>
+                <div class="category-content">
+                    <h3>{{ category.category_name }}</h3>
+                    <p>Test your web design knowledge.</p>
+                </div>
+                <span class="category-arrow">→</span>
+            </a>
+
+        </div>
+        {% endfor %}
+   
+    </section>
+
+</main>
+
+
+<footer class="dashboard-footer">
+    <p>© 2026 Quizzo. Learn. Test. Improve.</p>
+</footer>
+
+
+</div>
+
+<script>
+const accountButton=document.getElementById("accountButton");
+const dropdownContent=document.getElementById("dropdownContent");
+
+accountButton.addEventListener("click",function(event){
+    event.stopPropagation();
+    dropdownContent.classList.toggle("show-dropdown");
+    accountButton.classList.toggle("account-active");
+});
+
+document.addEventListener("click",function(event){
+    if(!dropdownContent.contains(event.target)&&!accountButton.contains(event.target)){
+        dropdownContent.classList.remove("show-dropdown");
+        accountButton.classList.remove("account-active");
+    }
+});
+</script>
+
+{% endblock %}

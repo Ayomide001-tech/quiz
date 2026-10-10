@@ -1,0 +1,119 @@
+{% extends "Base.html" %}
+{% load static %}
+
+{% block content %}
+
+<header class="user-score-header">
+
+
+<a href="{% url 'homepage' %}" class="user-score-logo">
+    Quiz<span>zo</span>
+</a>
+
+<div class="user-score-header-right">
+    <span class="user-score-page-name">User Scores</span>
+    <a href="{% url 'logout_view' %}" class="user-score-logout">
+        Logout
+    </a>
+</div>
+
+
+</header>
+
+
+{% if user.is_authenticated and user.is_superuser %}
+<a href="{% url 'superuserpage' %}" class="create-back-btn"> back </a>
+
+
+{% elif user.is_authenticated and user.is_admin %}
+<a href="{% url 'adminpage' %}" class="create-back-btn"> back </a>
+{% endif %}
+
+
+<main class="user-score-page">
+
+
+<div class="user-score-heading">
+    <p class="user-score-tag">QUIZ RESULTS</p>
+    <h1>User Scores</h1>
+    <p>View the quiz performance and scores of registered users.</p>
+</div>
+
+
+<div class="user-score-grid">
+
+    {% for user_item in user_attempts %}
+    {% with user_detail=user_item.user %}
+
+    <div class="user-score-card {% if user_detail.id == current_user.id %}current-user-card{% endif %}">
+
+        <div class="user-score-card-top">
+
+            <div class="user-avatar">
+                {{ user_detail.username|slice:":1"|upper }}
+            </div>
+
+            <div class="user-info">
+
+                <h2>{{ user_detail.username }}</h2>
+
+                <p>{{ user_detail.email }}</p>
+
+                {% if user_detail.is_superuser %}
+                    <span class="user-role admin-role">
+                        Administrator
+                    </span>
+                {% else %}
+                    <span class="user-role player-role">
+                        User
+                    </span>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <div class="score-divider"></div>
+
+
+        <div class="score-details">
+
+            <div class="score-label">
+                <span>Latest Score</span>
+                <small>{{ user_item.attempts|length }} attempt{{ user_item.attempts|length|pluralize }}</small>
+            </div>
+
+            <div class="score-number">
+                {{ user_item.latest_score }}
+            </div>
+        </div>
+
+        <div class="attempt-history">
+            {% for attempt in user_item.attempts|slice:":3" %}
+                <div class="attempt-row">
+                    <span>{{ attempt.category.category_name|default:'General' }}</span>
+                    <strong>{{ attempt.score }}/{{ attempt.total_question }}</strong>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    {% endwith %}
+
+    {% empty %}
+
+    <div class="no-users">
+        <h2>No User Scores Yet</h2>
+        <p>User scores will appear here when quiz results are available.</p>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+
+</main>
+
+{% endblock %}

@@ -1,0 +1,951 @@
+/* =========================================
+   QUIZZO - UPDATE CATEGORY
+   ALL CLASSES ARE UNIQUE TO THIS PAGE
+   ========================================= */
+
+.edit-category-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 45px 25px 70px;
+    box-sizing: border-box;
+    background: #0f172a;
+}
+
+
+/* =========================================
+   MAIN CARD
+   ========================================= */
+
+.edit-category-card {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 38px 42px;
+    box-sizing: border-box;
+
+    background: #171d2b;
+    border: 1px solid #293246;
+    border-radius: 16px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.35),
+        0 4px 14px rgba(79, 70, 229, 0.08);
+
+    overflow: hidden;
+}
+
+
+/* Decorative glow */
+
+.edit-category-card::before {
+    content: "";
+    position: absolute;
+    top: -110px;
+    right: -110px;
+
+    width: 230px;
+    height: 230px;
+
+    border-radius: 50%;
+
+    background: rgba(99, 102, 241, 0.08);
+
+    filter: blur(12px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   HEADING
+   ========================================= */
+
+.edit-category-heading {
+    position: relative;
+}
+
+.edit-category-heading p {
+    margin: 0 0 6px;
+
+    color: #818cf8;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.6px;
+}
+
+.edit-category-heading h1 {
+    margin: 0;
+
+    color: #f8fafc;
+
+    font-size: 28px;
+    font-weight: 750;
+
+    letter-spacing: -0.5px;
+}
+
+.edit-category-heading span {
+    display: block;
+
+    margin-top: 7px;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   DIVIDER
+   ========================================= */
+
+.edit-category-divider {
+    width: 100%;
+    height: 1px;
+
+    margin: 28px 0;
+
+    background: #293246;
+}
+
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.edit-category-form {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 22px;
+
+    margin: 0;
+    padding: 0;
+}
+
+
+/* =========================================
+   FORM GROUP
+   ========================================= */
+
+.edit-category-group {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.edit-category-group label {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+
+    color: #e2e8f0;
+
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.edit-category-group label small {
+    color: #7f8ca3;
+
+    font-size: 11px;
+    font-weight: 400;
+}
+
+
+/* =========================================
+   INPUT WRAPPER
+   ========================================= */
+
+.edit-category-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.edit-category-input-icon {
+    position: absolute;
+
+    left: 14px;
+    top: 50%;
+
+    z-index: 2;
+
+    transform: translateY(-50%);
+
+    color: #818cf8;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   INPUTS
+   ========================================= */
+
+.edit-category-page input,
+.edit-category-page select {
+    width: 100% !important;
+    height: 46px;
+
+    padding: 0 13px 0 40px;
+
+    box-sizing: border-box;
+
+    background: #111827;
+
+    color: #e2e8f0;
+
+    border: 1px solid #334155;
+    border-radius: 9px;
+
+    outline: none;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.edit-category-page input::placeholder {
+    color: #64748b;
+}
+
+.edit-category-page input:focus,
+.edit-category-page select:focus {
+    background: #141c2b;
+
+    border-color: #6366f1;
+
+    box-shadow:
+        0 0 0 3px rgba(99, 102, 241, 0.12);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   ACTION AREA
+   ========================================= */
+
+.edit-category-actions {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 7px;
+    padding-top: 22px;
+
+    border-top: 1px solid #293246;
+}
+
+
+/* =========================================
+   CANCEL
+   ========================================= */
+
+.edit-category-cancel {
+    height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 18px;
+
+    box-sizing: border-box;
+
+    background: #1e2533;
+
+    color: #94a3b8;
+
+    border: 1px solid #334155;
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: all 0.2s ease;
+}
+
+.edit-category-cancel:hover {
+    background: #252f40;
+
+    color: #e2e8f0;
+
+    border-color: #475569;
+}
+
+
+/* =========================================
+   UPDATE BUTTON
+   ========================================= */
+
+.edit-category-update {
+    position: relative;
+
+    height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 0 18px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #6366f1;
+    border-radius: 8px;
+
+    background: linear-gradient(
+        135deg,
+        #4f46e5,
+        #6366f1
+    );
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 13px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 15px rgba(79, 70, 229, 0.20);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+.edit-category-update:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.05);
+
+    box-shadow:
+        0 9px 20px rgba(79, 70, 229, 0.30);
+}
+
+.edit-category-update:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 4px 10px rgba(79, 70, 229, 0.20);
+}
+
+.edit-category-update span {
+    font-size: 14px;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 650px) {
+
+    .edit-category-page {
+        padding: 25px 14px 50px;
+    }
+
+    .edit-category-card {
+        padding: 27px 19px;
+
+        border-radius: 13px;
+    }
+
+    .edit-category-heading h1 {
+        font-size: 24px;
+    }
+
+    .edit-category-heading span {
+        font-size: 12px;
+    }
+
+    .edit-category-divider {
+        margin: 24px 0;
+    }
+
+    .edit-category-form {
+        gap: 19px;
+    }
+
+    .edit-category-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .edit-category-cancel,
+    .edit-category-update {
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================
+   QUIZZO - UPDATE QUESTION
+   ALL CLASSES ARE PAGE-SPECIFIC
+   ========================================= */
+
+.edit-question-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 45px 25px 70px;
+    box-sizing: border-box;
+    background: #0f172a;
+}
+
+
+/* =========================================
+   MAIN CARD
+   ========================================= */
+
+.edit-question-card {
+    position: relative;
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 38px 42px;
+    box-sizing: border-box;
+
+    background: #171d2b;
+    border: 1px solid #293246;
+    border-radius: 16px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.35),
+        0 4px 14px rgba(79, 70, 229, 0.08);
+
+    overflow: hidden;
+}
+
+
+/* Decorative glow */
+
+.edit-question-card::before {
+    content: "";
+    position: absolute;
+
+    top: -110px;
+    right: -110px;
+
+    width: 230px;
+    height: 230px;
+
+    border-radius: 50%;
+
+    background: rgba(99, 102, 241, 0.08);
+
+    filter: blur(12px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   HEADING
+   ========================================= */
+
+.edit-question-heading {
+    position: relative;
+}
+
+.edit-question-heading p {
+    margin: 0 0 6px;
+
+    color: #818cf8;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.6px;
+}
+
+.edit-question-heading h1 {
+    margin: 0;
+
+    color: #f8fafc;
+
+    font-size: 28px;
+    font-weight: 750;
+
+    letter-spacing: -0.5px;
+}
+
+.edit-question-heading span {
+    display: block;
+
+    margin-top: 7px;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   DIVIDER
+   ========================================= */
+
+.edit-question-divider {
+    width: 100%;
+    height: 1px;
+
+    margin: 28px 0;
+
+    background: #293246;
+}
+
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.edit-question-form {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 22px;
+
+    margin: 0;
+    padding: 0;
+}
+
+
+/* =========================================
+   FORM GROUP
+   ========================================= */
+
+.edit-question-group {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.edit-question-group label,
+.edit-question-section-label {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+
+    color: #e2e8f0;
+
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.edit-question-group label small,
+.edit-question-section-label small {
+    color: #7f8ca3;
+
+    font-size: 11px;
+    font-weight: 400;
+}
+
+
+/* =========================================
+   INPUT WRAPPER
+   ========================================= */
+
+.edit-question-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.edit-question-input-icon {
+    position: absolute;
+
+    left: 14px;
+    top: 50%;
+
+    z-index: 2;
+
+    transform: translateY(-50%);
+
+    color: #818cf8;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   INPUTS / SELECT
+   ========================================= */
+
+.edit-question-page input,
+.edit-question-page select,
+.edit-question-page textarea {
+    width: 100% !important;
+    box-sizing: border-box;
+
+    padding: 0 13px 0 40px;
+
+    background: #111827;
+
+    color: #e2e8f0;
+
+    border: 1px solid #334155;
+    border-radius: 9px;
+
+    outline: none;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.edit-question-page input,
+.edit-question-page select {
+    height: 46px;
+}
+
+.edit-question-page textarea {
+    min-height: 95px;
+
+    padding-top: 13px;
+
+    resize: vertical;
+}
+
+.edit-question-page input::placeholder,
+.edit-question-page textarea::placeholder {
+    color: #64748b;
+}
+
+.edit-question-page input:focus,
+.edit-question-page select:focus,
+.edit-question-page textarea:focus {
+    background: #141c2b;
+
+    border-color: #6366f1;
+
+    box-shadow:
+        0 0 0 3px rgba(99, 102, 241, 0.12);
+
+    transform: translateY(-1px);
+}
+
+.edit-question-page select {
+    cursor: pointer;
+}
+
+.edit-question-page select option {
+    background: #171d2b;
+    color: #e2e8f0;
+}
+
+
+/* =========================================
+   ANSWER CHOICES
+   ========================================= */
+
+.edit-question-answers {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.edit-question-section-label {
+    margin-bottom: 1px;
+}
+
+
+/* Answer row */
+
+.edit-question-answer-row {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+/* A B C D */
+
+.edit-question-letter {
+    width: 38px;
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    border-radius: 9px;
+
+    background: #252c4a;
+
+    border: 1px solid #343d62;
+
+    color: #818cf8;
+
+    font-size: 12px;
+    font-weight: 750;
+
+    transition: all 0.2s ease;
+}
+
+.edit-question-answer-row:hover .edit-question-letter {
+    background: #30385d;
+
+    border-color: #6366f1;
+
+    color: #a5b4fc;
+}
+
+
+/* Answer input */
+
+.edit-question-answer-row input {
+    flex: 1;
+
+    width: auto !important;
+
+    height: 42px;
+
+    padding: 0 13px;
+
+    background: #111827;
+}
+
+
+/* =========================================
+   BUTTON AREA
+   ========================================= */
+
+.edit-question-actions {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 7px;
+    padding-top: 22px;
+
+    border-top: 1px solid #293246;
+}
+
+
+/* =========================================
+   CANCEL BUTTON
+   ========================================= */
+
+.edit-question-cancel {
+    height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 18px;
+
+    box-sizing: border-box;
+
+    background: #1e2533;
+
+    color: #94a3b8;
+
+    border: 1px solid #334155;
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: all 0.2s ease;
+}
+
+.edit-question-cancel:hover {
+    background: #252f40;
+
+    color: #e2e8f0;
+
+    border-color: #475569;
+}
+
+
+/* =========================================
+   UPDATE BUTTON
+   ========================================= */
+
+.edit-question-update {
+    position: relative;
+
+    height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 0 18px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #6366f1;
+    border-radius: 8px;
+
+    background: linear-gradient(
+        135deg,
+        #4f46e5,
+        #6366f1
+    );
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 13px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 15px rgba(79, 70, 229, 0.20);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+.edit-question-update:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.05);
+
+    box-shadow:
+        0 9px 20px rgba(79, 70, 229, 0.30);
+}
+
+.edit-question-update:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 4px 10px rgba(79, 70, 229, 0.20);
+}
+
+.edit-question-update span {
+    font-size: 14px;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 650px) {
+
+    .edit-question-page {
+        padding: 25px 14px 50px;
+    }
+
+    .edit-question-card {
+        padding: 27px 19px;
+
+        border-radius: 13px;
+    }
+
+    .edit-question-heading h1 {
+        font-size: 24px;
+    }
+
+    .edit-question-heading span {
+        font-size: 12px;
+    }
+
+    .edit-question-divider {
+        margin: 24px 0;
+    }
+
+    .edit-question-form {
+        gap: 19px;
+    }
+
+    .edit-question-letter {
+        width: 34px;
+        height: 34px;
+
+        flex-basis: 34px;
+    }
+
+    .edit-question-answer-row {
+        gap: 8px;
+    }
+
+    .edit-question-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .edit-question-cancel,
+    .edit-question-update {
+        width: 100%;
+    }
+}

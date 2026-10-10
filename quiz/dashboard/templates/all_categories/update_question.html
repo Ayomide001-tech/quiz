@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="edit-question-page">
+
+    <div class="edit-question-card">
+
+        <div class="edit-question-heading">
+            <p>QUIZ DATA</p>
+            <h1>Update Question</h1>
+            <span>Edit the question and answer choices below.</span>
+        </div>
+
+        <div class="edit-question-divider"></div>
+
+        <form method="post"
+              enctype="multipart/form-data"
+              class="edit-question-form">
+
+            {% csrf_token %}
+
+            <!-- Category -->
+            <div class="edit-question-group">
+
+                <label for="{{ form.category.id_for_label }}">
+                    Question Category
+                    <small>Select the category for this question.</small>
+                </label>
+
+                <div class="edit-question-input-wrapper">
+                    <span class="edit-question-input-icon">▦</span>
+                    {{ form.category }}
+                </div>
+
+            </div>
+
+
+            <!-- Question -->
+            <div class="edit-question-group">
+
+                <label for="{{ form.question.id_for_label }}">
+                    Question
+                    <small>Enter the question you want users to answer.</small>
+                </label>
+
+                <div class="edit-question-input-wrapper">
+                    <span class="edit-question-input-icon"></span>
+                    {{ form.question }}
+                </div>
+
+            </div>
+
+
+            <!-- Answer Choices -->
+            <div class="edit-question-answers">
+
+                <label class="edit-question-section-label">
+                    Answer Choices
+                    <small>Enter the four possible answers.</small>
+                </label>
+
+                <div class="edit-question-answer-row">
+                    <span class="edit-question-letter">A</span>
+                    {{ form.option_a }}
+                </div>
+
+                <div class="edit-question-answer-row">
+                    <span class="edit-question-letter">B</span>
+                    {{ form.option_b }}
+                </div>
+
+                <div class="edit-question-answer-row">
+                    <span class="edit-question-letter">C</span>
+                    {{ form.option_c }}
+                </div>
+
+                <div class="edit-question-answer-row">
+                    <span class="edit-question-letter">D</span>
+                    {{ form.option_d }}
+                </div>
+
+            </div>
+
+
+            <!-- Correct Answer -->
+            <div class="edit-question-group">
+
+                <label for="{{ form.correct_answer.id_for_label }}">
+                    Correct Option
+                    <small>Select the correct answer for this question.</small>
+                </label>
+
+                <div class="edit-question-input-wrapper">
+                    <span class="edit-question-input-icon">✓</span>
+                    {{ form.correct_answer }}
+                </div>
+
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="edit-question-actions">
+
+                <a href="{% url 'viewaddedquestion' %}"
+                   class="edit-question-cancel">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="edit-question-update">
+
+                    <span>✓</span>
+                    Update Question
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

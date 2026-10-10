@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<header class="view-questions-header">
+    <a href="{% url 'homepage' %}" class="view-questions-logo">Quiz<span>zo</span></a>
+
+    <div class="view-questions-nav">
+        <a href="{% url 'create_question' %}" class="add-question-link">+ Add Question</a>
+        <a href="{% url 'logout_view' %}" class="logout-link">Logout</a>
+    </div>
+</header>
+
+<main class="view-questions-page">
+
+    <div class="view-questions-heading">
+        <p>QUIZ DATABASE</p>
+        <h1>Added Questions</h1>
+        <span>View the questions you have added to Quizzo.</span>
+    </div>
+{% if user.is_authenticated and user.is_superuser %}
+<a href="{% url 'superuserpage' %}" class="create-back-btn">← Back to Admin Panel</a>
+
+
+{% elif user.is_authenticated and user.is_admin %}
+<a href="{% url 'adminpage' %}" class="create-back-btn">← Back to Admin Panel</a>
+{% endif %}
+
+
+
+
+<!-- {% for question in questions %}
+    {{ question.question }}
+    {{ question.category.category_name }}
+{% endfor %} -->
+    
+
+<div class="category-grid">
+
+    {% for category in categorys %}
+
+    <div class="category-item">
+
+        <a href="{% url 'display_questions' category.id %}" class="category-card">
+
+            <div class="category-icon"></div>
+
+            <div class="category-content">
+                <h3>{{ category.category_name }}</h3>
+                <p>Test your web design knowledge.</p>
+            </div>
+
+            <span class="category-arrow">→</span>
+
+        </a>
+
+        <div class="category-actions">
+
+            <a href="{% url 'category_update' pk=category.pk %}"
+               class="category-update-btn"
+               title="Update category">
+
+                <span class="category-action-icon">✎</span>
+                <span class="category-action-text">Update</span>
+
+            </a>
+
+            <form method="post"
+                  action="{% url 'category_delete' pk=category.pk %}"
+                  onsubmit="return confirm('Do you really want to delete this {{ category.category_name }} Category?');">
+
+                {% csrf_token %}
+
+                <button type="submit"
+                        class="category-delete-btn"
+                        title="Delete category">
+
+                    <span class="category-action-icon">🗑</span>
+                    <span class="category-action-text">Delete</span>
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<style>
+    /* ================================
+   CATEGORY ACTION BUTTONS
+   ================================ */
+
+.category-item {
+    width: 100%;
+}
+
+.category-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 7px;
+
+    margin-top: 8px;
+    padding-right: 5px;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(3px);
+
+    transition: all 0.2s ease;
+}
+
+/* Show buttons when category is hovered */
+.category-item:hover .category-actions {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* UPDATE & DELETE BUTTONS */
+
+.category-update-btn,
+.category-delete-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    min-width: 90px;
+    padding: 9px 16px;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+
+    text-decoration: none;
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+/* UPDATE */
+
+.category-update-btn {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.category-update-btn:hover {
+    background: #4f46e5;
+    color: #ffffff;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 14px rgba(79, 70, 229, 0.22);
+}
+
+/* DELETE */
+
+.category-delete-btn {
+    background: #fff1f2;
+    color: #e11d48;
+}
+
+.category-delete-btn:hover {
+    background: #e11d48;
+    color: #ffffff;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 14px rgba(225, 29, 72, 0.22);
+}
+
+/* ICON */
+
+.category-action-icon {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.category-action-text {
+    white-space: nowrap;
+}
+
+/* FORM */
+
+.category-actions form {
+    margin-right: 80%;
+    padding: 0;
+}
+
+/* CLICK EFFECT */
+
+.category-update-btn:active,
+.category-delete-btn:active {
+    transform: translateY(0);
+}
+</style>
+
+{% endblock %}

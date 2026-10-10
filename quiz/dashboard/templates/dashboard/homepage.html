@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    
+  <link rel="stylesheet" href="{% static 'css/homepage.css' %}">  
+    
+    <!-- BACKGROUND DECORATION -->
+    <div class="background-shape shape-one"></div>
+    <div class="background-shape shape-two"></div>
+
+    <!-- HEADER -->
+    <header class="header">
+        <a href="{% url 'homepage' %}" class="logo">Quiz<span>zo</span></a>
+
+        <nav class="nav-links">
+            <a href="#" class="active">Home</a>
+            <a href="#">About</a>
+            <a href="#">Categories</a>
+            <a href="#">Blog</a>
+        </nav>
+
+        <div class="header-buttons">
+            <a href="{% url 'login' %}" class="sign-in">Sign in</a>
+            <a href="{% url 'register' %}" class="register-btn">Register</a>
+        </div>
+    </header>
+
+    <!-- MAIN HERO SECTION -->
+    <main class="hero">
+        <section class="hero-content">
+            <div class="hero-tag">
+                <span class="tag-dot"></span>
+                Learn • Test • Improve
+            </div>
+
+            <h1>The <span>quiz method</span> that works for you.</h1>
+
+            <p>
+                Quizzo helps you take exciting quizzes, challenge your thinking,
+                and discover your knowledge across different categories.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="register.html" class="get-started">
+                    Get Started <span>→</span>
+                </a>
+
+                <a href="#" class="explore-btn">
+                    Explore Quizzes
+                </a>
+            </div>
+
+            <div class="hero-info">
+                <div class="info-icon">∞</div>
+
+                <div>
+                    <strong>Unlimited access</strong>
+                    <p>Explore quizzes whenever you want.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- HERO VISUAL -->
+        <section class="hero-visual">
+            <div class="visual-glow"></div>
+
+            <div class="main-visual-card">
+                <div class="visual-icon">?</div>
+
+                <h2>Challenge Your Mind</h2>
+
+                <p>
+                    Explore different topics, test your knowledge,
+                    and learn something new every day.
+                </p>
+
+                <div class="visual-stats">
+                    <div class="stat">
+                        <strong>∞</strong>
+                        <span>Quizzes</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>100%</strong>
+                        <span>Fun</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>24/7</strong>
+                        <span>Access</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="floating-card floating-one">
+                <span>🧠</span>
+                <div>
+                    <strong>Keep Learning</strong>
+                    <small>Grow your knowledge</small>
+                </div>
+            </div>
+
+            <div class="floating-card floating-two">
+                <span>🏆</span>
+                <strong>Challenge<br>Yourself</strong>
+            </div>
+        </section>
+    </main>
+{% endblock %}

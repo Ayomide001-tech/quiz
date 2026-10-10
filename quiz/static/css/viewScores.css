@@ -1,0 +1,416 @@
+/* =========================================
+USER SCORE HEADER
+========================================= */
+
+.user-score-header{
+width:min(1200px,90%);
+margin:auto;
+padding:25px 0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:relative;
+z-index:10;
+animation:headerAnimation .8s ease forwards;
+}
+
+.user-score-logo{
+color:#fff;
+font-size:28px;
+font-weight:800;
+text-decoration:none;
+letter-spacing:-1px;
+}
+
+.user-score-logo span{
+color:#a78bfa;
+}
+
+.user-score-header-right{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.user-score-page-name{
+color:rgba(255,255,255,.6);
+font-size:14px;
+}
+
+.user-score-logout{
+padding:10px 20px;
+border-radius:10px;
+color:#fff;
+text-decoration:none;
+font-size:14px;
+font-weight:600;
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.15);
+transition:
+transform .3s ease,
+background .3s ease,
+border .3s ease;
+}
+
+.user-score-logout:hover{
+background:rgba(124,58,237,.3);
+border-color:#a78bfa;
+transform:translateY(-2px);
+}
+
+/* =========================================
+USER SCORE PAGE
+========================================= */
+
+.user-score-page{
+width:min(1100px,90%);
+margin:45px auto 80px;
+position:relative;
+z-index:2;
+animation:userScorePageAnimation .8s ease forwards;
+}
+
+/* =========================================
+PAGE HEADING
+========================================= */
+
+.user-score-heading{
+text-align:center;
+max-width:650px;
+margin:0 auto 45px;
+}
+
+.user-score-tag{
+display:inline-block;
+padding:7px 14px;
+margin-bottom:15px;
+border-radius:30px;
+background:rgba(124,58,237,.15);
+border:1px solid rgba(167,139,250,.25);
+color:#c4b5fd;
+font-size:11px;
+font-weight:700;
+letter-spacing:1px;
+}
+
+.user-score-heading h1{
+margin-bottom:12px;
+color:#fff;
+font-size:clamp(32px,5vw,48px);
+letter-spacing:-1.5px;
+}
+
+.user-score-heading>p:last-child{
+color:rgba(255,255,255,.6);
+font-size:14px;
+line-height:1.7;
+}
+
+/* =========================================
+USER SCORE GRID
+========================================= */
+
+.user-score-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:20px;
+}
+
+/* =========================================
+USER SCORE CARD
+========================================= */
+
+.user-score-card{
+position:relative;
+padding:25px;
+border-radius:22px;
+background:rgba(255,255,255,.07);
+border:1px solid rgba(255,255,255,.12);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+box-shadow:0 20px 45px rgba(0,0,0,.2);
+overflow:hidden;
+transition:
+transform .35s ease,
+border .35s ease,
+background .35s ease,
+box-shadow .35s ease;
+}
+
+.user-score-card::before{
+content:"";
+position:absolute;
+width:180px;
+height:180px;
+border-radius:50%;
+background:#7c3aed;
+filter:blur(90px);
+opacity:.12;
+top:-100px;
+right:-80px;
+pointer-events:none;
+}
+
+.user-score-card:hover{
+transform:translateY(-7px);
+background:rgba(255,255,255,.1);
+border-color:rgba(167,139,250,.4);
+box-shadow:0 28px 55px rgba(0,0,0,.3);
+}
+
+/* Current User Highlight */
+.current-user-card{
+background:rgba(16, 185, 129, 0.12);
+border-color:rgba(16, 185, 129, 0.4);
+box-shadow:0 20px 45px rgba(16, 185, 129, 0.15);
+position:relative;
+}
+
+.current-user-card::before{
+background:#10b981;
+}
+
+.current-user-card::after{
+content:"YOU";
+position:absolute;
+top:10px;
+right:15px;
+background:linear-gradient(135deg, #10b981, #059669);
+color:#fff;
+padding:4px 12px;
+border-radius:8px;
+font-size:11px;
+font-weight:700;
+letter-spacing:1px;
+box-shadow:0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.current-user-card:hover{
+transform:translateY(-7px);
+background:rgba(16, 185, 129, 0.18);
+border-color:rgba(16, 185, 129, 0.6);
+box-shadow:0 28px 55px rgba(16, 185, 129, 0.25);
+}
+
+/* =========================================
+USER DETAILS
+========================================= */
+
+.user-score-card-top{
+position:relative;
+z-index:2;
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.user-avatar{
+width:55px;
+height:55px;
+flex-shrink:0;
+display:grid;
+place-items:center;
+border-radius:16px;
+background:linear-gradient(135deg,#7c3aed,#2563eb);
+color:#fff;
+font-size:21px;
+font-weight:700;
+box-shadow:0 10px 25px rgba(124,58,237,.3);
+transition:transform .3s ease;
+}
+
+.user-score-card:hover .user-avatar{
+transform:scale(1.08) rotate(3deg);
+}
+
+.user-info{
+min-width:0;
+flex:1;
+}
+
+.user-info h2{
+margin-bottom:5px;
+color:#fff;
+font-size:17px;
+font-weight:600;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap;
+}
+
+.user-info p{
+color:rgba(255,255,255,.5);
+font-size:12px;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap;
+}
+
+/* =========================================
+USER ROLE
+========================================= */
+
+.user-role{
+display:inline-block;
+margin-top:8px;
+padding:5px 10px;
+border-radius:20px;
+font-size:10px;
+font-weight:700;
+letter-spacing:.6px;
+text-transform:uppercase;
+}
+
+/* SUPERUSER / ADMINISTRATOR */
+
+.admin-role{
+color:#d8b4fe;
+background:rgba(124,58,237,.18);
+border:1px solid rgba(167,139,250,.3);
+}
+
+/* NORMAL USER */
+
+.player-role{
+color:#93c5fd;
+background:rgba(37,99,235,.15);
+border:1px solid rgba(96,165,250,.25);
+}
+
+/* =========================================
+DIVIDER
+========================================= */
+
+.score-divider{
+height:1px;
+margin:25px 0;
+background:rgba(255,255,255,.1);
+}
+
+/* =========================================
+SCORE DETAILS
+========================================= */
+
+.score-details{
+position:relative;
+z-index:2;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.score-label span{
+display:block;
+margin-bottom:4px;
+color:#fff;
+font-size:14px;
+font-weight:600;
+}
+
+.score-label small{
+color:rgba(255,255,255,.45);
+font-size:11px;
+}
+
+.score-number{
+min-width:70px;
+padding:12px 15px;
+text-align:center;
+border-radius:14px;
+background:rgba(124,58,237,.15);
+border:1px solid rgba(167,139,250,.22);
+color:#d8b4fe;
+font-size:22px;
+font-weight:800;
+transition:
+transform .3s ease,
+background .3s ease;
+}
+
+.user-score-card:hover .score-number{
+transform:scale(1.08);
+background:rgba(124,58,237,.25);
+}
+
+/* =========================================
+NO USERS
+========================================= */
+
+.no-users{
+grid-column:1/-1;
+padding:50px 25px;
+text-align:center;
+border-radius:22px;
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.12);
+}
+
+.no-users h2{
+margin-bottom:10px;
+color:#fff;
+font-size:22px;
+}
+
+.no-users p{
+color:rgba(255,255,255,.55);
+font-size:14px;
+}
+
+/* =========================================
+ANIMATION
+========================================= */
+
+@keyframes userScorePageAnimation{
+from{
+opacity:0;
+transform:translateY(30px);
+}
+
+
+to{
+    opacity:1;
+    transform:translateY(0);
+}
+
+
+}
+
+/* =========================================
+MOBILE
+========================================= */
+
+@media(max-width:650px){
+
+
+.user-score-header{
+    width:90%;
+    padding:20px 0;
+}
+
+.user-score-page-name{
+    display:none;
+}
+
+.user-score-page{
+    width:90%;
+    margin:30px auto 50px;
+}
+
+.user-score-heading{
+    margin-bottom:30px;
+}
+
+.user-score-card{
+    padding:20px;
+}
+
+.user-score-grid{
+    grid-template-columns:1fr;
+}
+
+.user-info p{
+    max-width:190px;
+}
+
+
+}

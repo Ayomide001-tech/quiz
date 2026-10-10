@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+{% if user.is_authenticated and user.is_superuser %}
+
+<div class="excel-import-page">
+
+    <a href="{% url 'superuserpage' %}" class="excel-import-back-btn">
+        ← Back to Admin Panel
+    </a>
+
+    <div class="excel-import-container">
+
+        <div class="excel-import-heading">
+            <span>QUIZ DATA</span>
+            <h1>Import Questions</h1>
+            <p>Add multiple questions to Quizzo using an Excel file.</p>
+        </div>
+
+        <div class="excel-import-divider"></div>
+
+        <!-- STEP 1 -->
+
+        <div class="excel-import-step">
+
+            <div class="excel-import-step-number">
+                01
+            </div>
+
+            <div class="excel-import-step-content">
+
+                <div class="excel-import-step-title">
+                    Step 1
+                </div>
+
+                <h3>Download the Question Template</h3>
+
+                <p>
+                    Download the Excel template if you haven't already.
+                    Use this template to enter your quiz questions.
+                </p>
+
+                <a href="{% url 'download_question_template' %}"
+                   class="excel-import-download-btn">
+
+                    <span class="excel-import-download-icon">▣</span>
+
+                    <span class="excel-import-button-text">
+                        <strong>Download Question Template</strong>
+                        <small>Get the Excel template for adding questions</small>
+                    </span>
+
+                    <span class="excel-import-button-arrow">→</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- STEP 2 -->
+
+        <div class="excel-import-step">
+
+            <div class="excel-import-step-number">
+                02
+            </div>
+
+            <div class="excel-import-step-content">
+
+                <div class="excel-import-step-title">
+                    Step 2
+                </div>
+
+                <h3>Upload Your Completed Excel File</h3>
+
+                <p>
+                    Fill in the downloaded template with your questions
+                    and upload the same file here.
+                </p>
+
+                <form method="post"
+                      enctype="multipart/form-data"
+                      action="{% url 'import_questions_from_excel' %}"
+                      class="excel-import-upload-form">
+
+                    {% csrf_token %}
+
+                    <div class="excel-import-file-area">
+
+                        <div class="excel-import-upload-icon">
+                            ↑
+                        </div>
+
+                        <div class="excel-import-file-content">
+
+                            <strong>Select Excel File</strong>
+
+                            <small>
+                                Only .xlsx Excel files are accepted
+                            </small>
+
+                            <input type="file"
+                                   name="excel_file"
+                                   accept=".xlsx"
+                                   required
+                                   class="excel-import-file-input">
+
+                        </div>
+
+                    </div>
+
+                    <button type="submit"
+                            class="excel-import-send-btn">
+
+                        <span>Upload Questions</span>
+                        <span class="excel-import-send-arrow">→</span>
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}
