@@ -1,2 +1,5 @@
 -r quiz/requirements.txt
 gunicorn==23.0.0
+python-dotenv
+openpyxl
+google-genai
