@@ -19,14 +19,15 @@ from django.urls import path
 from django.conf.urls.static import static 
 from django.conf import settings
 from django.urls import include
+from dashboard.views import homepage
 
 
 urlpatterns = [
+    path('', homepage, name='home'),
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
     path('dashboard/', include('dashboard.urls')),
 
 
 ]
-
 
