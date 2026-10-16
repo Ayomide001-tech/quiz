@@ -29,7 +29,6 @@ class MyAccountManager(BaseUserManager):
         )
         user.is_admin = True
         user.is_staff = True
-        user.is_superuser = False
         user.save(using=self._db)
         return user
 
@@ -37,7 +36,6 @@ class MyAccountManager(BaseUserManager):
         user = super().save(commit = False)
         user.is_admin = True
         user.is_staff = True
-        user.is_superuser = False
 
         if commit:
             user.save()
