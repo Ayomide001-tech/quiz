@@ -66,9 +66,9 @@ def admin_form(request):
         form = adminRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            if user.is_superuser:
+            if user.is_admin:
 
-                return redirect('superuserpage')
+                return redirect('adminpage')  # Redirect to admin page after successful registration
             return redirect('login')
     else:
         form = adminRegistrationForm()
