@@ -15,6 +15,8 @@ def login(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
             return redirect('superuserpage')
+        elif request.user.is_admin:
+            return redirect('adminpage')
         return redirect('dashboard')
 
     if request.method == 'POST':
