@@ -31,8 +31,6 @@ class loginAuthenticationForm(forms.Form):
             
 
 class adminRegistrationForm(UserCreationForm):
-    is_admin = forms.BooleanField(required=False)
-    is_superuser = forms.BooleanField(required=False)
     class Meta:
         model = Account
         fields =['email', 'username', 'password1', 'password2']
@@ -40,8 +38,9 @@ class adminRegistrationForm(UserCreationForm):
         
     def save(self, commit=True):
         user = super().save(commit=False) 
-        user.is_admin = self.cleaned_data["is_admin"] 
-        user.is_superuser = self.cleaned_data["is_superuser"] 
+        user.is_admin = True
+        user.is_staff = True
+        user.is_superuser = False
         
         if commit:
             user.save()

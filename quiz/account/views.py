@@ -30,6 +30,8 @@ def login(request):
                 auth_login(request, user)
                 if user.is_superuser:
                     return redirect('superuserpage')  # Redirect to admin page if user is superuser
+                elif user.is_admin:
+                    return redirect('adminpage')
                 return redirect('dashboard')  # Redirect to a success page after login
             else:
                 form.add_error(None, "Invalid login credentials")
@@ -64,6 +66,11 @@ def logout_view(request):
 
 
 def admin_form(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    if not request.user.is_superuser:
+        return redirect('homepage')
+
     if request.method == 'POST':
         form = adminRegistrationForm(request.POST)
         if form.is_valid():

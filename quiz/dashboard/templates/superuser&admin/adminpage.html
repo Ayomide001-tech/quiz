@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-{% if user.is_authenticated and user.is_superuser %}
+{% if user.is_authenticated and user.is_superuser or user.is_authenticated and user.is_admin %}
 
 <header class="admin-header">
 
