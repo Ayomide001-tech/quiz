@@ -442,7 +442,7 @@ def create_question(request):
     if not request.user.is_authenticated:
         return redirect('homepage')
 
-    if not request.user.is_admin or not  request.user.is_staff or not request.user.is_superuser:
+    if not (request.user.is_superuser or (request.user.is_admin and request.user.is_staff)):
         return redirect('dashboard')
 
     categories = category.objects.all()
@@ -458,7 +458,7 @@ def create_question_api(request):
             status=401,
         )
 
-    if not request.user.is_admin or not  request.user.is_staff or not request.user.is_superuser:
+    if not (request.user.is_superuser or (request.user.is_admin and request.user.is_staff)):
         return JsonResponse(
             {"success": False, "error": "You are not allowed to create questions."},
             status=403,
