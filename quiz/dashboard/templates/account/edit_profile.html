@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1>Edit your profile</h1>
+<p>Your email is also used to log in. After changing it, use the new email next time you sign in.</p>
+
+<form method="post" id="editProfileForm" autocomplete="off">
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <div class="form-errors">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="form-group">
+        <label for="username">Username</label>
+        {{ form.username }}
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email Address</label>
+        {{ form.email }}
+    </div>
+
+    <button class="btn btn-primary" type="submit">
+        Update Profile
+    </button>
+</form>
+
+
+{% endblock %}

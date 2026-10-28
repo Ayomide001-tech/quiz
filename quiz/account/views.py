@@ -1,11 +1,21 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseForbidden
+from django.views.decorators.http import require_POST
 # from unicodedata import category
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Account
 from django.contrib import messages
-from .forms import registrationForm, loginAuthenticationForm, adminRegistrationForm, staffRegistrationForm
+from .forms import (
+    registrationForm,
+    loginAuthenticationForm,
+    adminRegistrationForm,
+    staffRegistrationForm,
+    UserUpdateForm,
+    AccountRoleForm,
+)
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -92,3 +102,40 @@ def view_all_user(request):
 
     presentusers = Account.objects.all()
     return render(request, 'account/view_all_user.html', {'presentusers': presentusers})
+
+
+@login_required(login_url='login')
+@require_POST
+def update_account_role(request, account_id):
+    if not request.user.is_superuser:
+        return HttpResponseForbidden("Only superusers can change account roles.")
+
+    account = get_object_or_404(Account, pk=account_id)
+    form = AccountRoleForm(request.POST, account=account)
+    if not form.is_valid():
+        messages.error(request, "Choose a valid account role.")
+        return redirect('view_all_user')
+
+    if account.pk == request.user.pk and form.cleaned_data['role'] != 'superuser':
+        messages.error(request, "You cannot remove your own superuser access.")
+        return redirect('view_all_user')
+
+    form.save()
+    messages.success(request, f"Updated the role for {account.username}.")
+    return redirect('view_all_user')
+
+
+
+@login_required(login_url='login')
+def edit_profile(request):
+    if request.method == "POST":
+        form = UserUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your profile has been updated successfully.")
+            return redirect('dashboard')  # Redirect to the same page after successful update
+
+    else:
+        form = UserUpdateForm(instance=request.user)
+
+    return render(request, 'account/edit_profile.html', {'form': form})

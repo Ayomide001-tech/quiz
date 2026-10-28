@@ -60,4 +60,43 @@ class staffRegistrationForm(UserCreationForm):
         return user
     
              
-    
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Account
+        fields = ['username', 'email']
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if Account.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError("This email is already in use.")
+        return email
+
+
+class AccountRoleForm(forms.Form):
+    ROLE_CHOICES = (
+        ('user', 'User'),
+        ('admin', 'Admin'),
+        ('superuser', 'Superuser'),
+    )
+    role = forms.ChoiceField(choices=ROLE_CHOICES)
+
+    def __init__(self, *args, account, **kwargs):
+        self.account = account
+        if 'initial' not in kwargs:
+            if account.is_superuser:
+                role = 'superuser'
+            elif account.is_admin:
+                role = 'admin'
+            else:
+                role = 'user'
+            kwargs['initial'] = {'role': role}
+        super().__init__(*args, **kwargs)
+
+    def save(self):
+        role = self.cleaned_data['role']
+        self.account.is_admin = role in ('admin', 'superuser')
+        self.account.is_staff = role in ('admin', 'superuser')
+        self.account.is_superuser = role == 'superuser'
+        self.account.save(update_fields=['is_admin', 'is_staff', 'is_superuser'])
+        return self.account
