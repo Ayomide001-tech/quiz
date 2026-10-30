@@ -603,9 +603,9 @@ MOBILE
 }
 
 @media(max-width:400px){
-    .sign-in{
+    /* .sign-in{
         display:none;
-    }
+    } */
 
     .hero-content h1{
         font-size:36px;
