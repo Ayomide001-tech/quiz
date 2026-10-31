@@ -18,15 +18,15 @@ from pathlib import Path
 load_dotenv()
 import dj_database_url
 # --- DATABASE CONFIGURATION ---
+BASE_DIR = Path(__file__).resolve().parent.parent
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
         conn_max_age=600,
         ssl_require=True
     )
 }
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
@@ -38,8 +38,7 @@ SECRET_KEY = 'django-insecure-#jj467d&*zyw1@bni&5$si=)6(7838pqf3n^em7-04-e**@))b
 
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+DEBUG = 'RENDER' not in os.environ
 ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
 # Application definition
 
